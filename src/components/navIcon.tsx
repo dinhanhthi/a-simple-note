@@ -1,9 +1,7 @@
-import Link from 'next/link'
-
 export default function NavIcon() {
   return (
     <div className="shrink-0">
-      <Link className="flex items-center overflow-hidden" href="/">
+      <div className="flex items-center overflow-hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
@@ -21,7 +19,7 @@ export default function NavIcon() {
             ></path>
           </g>
         </svg>
-      </Link>
+      </div>
     </div>
   )
 }
