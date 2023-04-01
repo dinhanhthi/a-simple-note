@@ -1,4 +1,4 @@
-# nextjs-tailwind-starter
+# AtomicNote
 
 ```bash
 # install
