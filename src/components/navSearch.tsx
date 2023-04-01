@@ -25,7 +25,7 @@ export default function NavSearch() {
         text-slate-500 dark:text-gray-500
       "
       >
-        <FiSearch className="h-5 w-5 group-hover:text-green-300" />
+        <FiSearch className="h-5 w-5 group-hover:text-primary" />
       </button>
       <input
         className={cn(
