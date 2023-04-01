@@ -3,11 +3,11 @@ import cn from 'classnames'
 import { fakeNotes } from '../lib/fakeData'
 import Block from './block'
 
-type BlocksContainerProps = {
+type BlocksProps = {
   className?: string
 }
 
-export default function BlocksContainer(props: BlocksContainerProps) {
+export default function Blocks(props: BlocksProps) {
   return (
     <div className={cn('pt-14 h-full flex bg-gray-50', props.className)}>
       <div className={cn('h-full w-full overflow-auto an-scrollbar')}>

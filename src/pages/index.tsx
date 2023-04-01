@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Head from 'next/head'
 
-import BlocksContainer from '../components/blocksContainer'
+import Blocks from '../components/blocks'
 import Navigation from '../components/nav'
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <main>
         <div className={cn('flex h-screen flex-col justify-between')}>
           <Navigation />
-          <BlocksContainer />
+          <Blocks />
         </div>
       </main>
     </>

@@ -5,8 +5,8 @@ export const fakeNotes = (): Note[] => {
   for (let i = 0; i < 10; i++) {
     notes.push({
       id: `${i}`,
-      title: `Note ${i}`,
-      content: `Content ${i}`,
+      title: `This is the title of Note ${i}`,
+      content: `<p>Content ${i} with <b>some texts</b> and <cde>some code</code></p>`,
       createdAt: randomDate(),
       updatedAt: randomDate()
     })
