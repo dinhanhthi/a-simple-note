@@ -1,0 +1,47 @@
+{
+  "name": "nextjs-tailwind-starter",
+  "version": "1.0.0",
+  "author": "Anh-Thi Dinh",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check": "yarn run prettier && yarn run build",
+    "prettier": "prettier --write \"**/*.{tsx,ts,css,scss}\"",
+    "clean": "rimraf .next",
+    "clean-build": "yarn run clean && yarn run build",
+    "reinstall": "yarn run clean && rimraf node_modules && rm yarn.lock && yarn install"
+  },
+  "dependencies": {
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.31",
+    "@types/react-dom": "18.0.11",
+    "eslint": "^8.37.0",
+    "eslint-config-next": "^13.2.4",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/react-syntax-highlighter": "^15.5.6",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "autoprefixer": "^10.4.14",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-tailwindcss": "^3.10.1",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.6",
+    "react-syntax-highlighter": "^15.5.0",
+    "sass": "^1.60.0",
+    "tailwindcss": "^3.3.1"
+  }
+}

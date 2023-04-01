@@ -1,0 +1,22 @@
+{
+  "prettier.requireConfig": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.ignorePath": ".prettierignore",
+  "css.validate": false, // used for @tailwindcss
+  "scss.validate": false, // used for @tailwindcss,
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.trailingComma": "none",
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 100,
+  "prettier.semi": false,
+  "search.exclude": {
+    "**/dist": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true
+  },
+  "editor.rulers": [100]
+}
