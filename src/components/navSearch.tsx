@@ -30,7 +30,7 @@ export default function NavSearch() {
       <input
         className={cn(
           'peer h-full w-full text-ellipsis bg-transparent pr-2 text-white outline-none',
-          'dark:text-gray-300'
+          'dark:text-gray-300 an-hide-wscb'
         )}
         id="search"
         type="search"

@@ -3,7 +3,7 @@ import parse from 'html-react-parser'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { Note } from '../additional'
+import { Note } from '../interface'
 import BlockModal from './blockModal'
 
 type BlockProps = {

@@ -25,7 +25,12 @@
   --border-angle: 0turn;
   --an-box-transparent: 100%;
   background-image: conic-gradient(from var(--border-angle), #fff, #fff, #fff),
-    conic-gradient(from var(--border-angle), transparent var(--an-box-transparent), #d2a8ff, #ff7b72);
+    conic-gradient(
+      from var(--border-angle),
+      transparent var(--an-box-transparent),
+      #d2a8ff,
+      #ff7b72
+    );
   background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),
     cover;
   background-position: center center;
@@ -47,6 +52,13 @@
   syntax: '<angle>';
   inherits: true;
   initial-value: 0turn;
+}
+
+.an-hide-wscb {
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    display: none;
+  }
 }
 
 .an-scrollbar {

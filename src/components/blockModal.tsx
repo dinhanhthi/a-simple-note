@@ -2,9 +2,8 @@ import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
 import parse from 'html-react-parser'
 import { Fragment } from 'react'
-import { VscChromeClose } from 'react-icons/vsc'
 
-import { Note } from '../additional'
+import { Note } from '../interface'
 
 type BlockModalProps = {
   isOpen: boolean
@@ -19,7 +18,7 @@ export default function BlockModal(props: BlockModalProps) {
     <Transition appear show={props.isOpen} as={Fragment}>
       {/* 👇 Give onClose an empty function to disable click outside to hide the dialog */}
       {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
-      <Dialog as="div" className={cn('relative z-10', props.className)} onClose={() => {}}>
+      <Dialog as="div" className={cn('relative z-10', props.className)} onClose={props.closeModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -45,26 +44,26 @@ export default function BlockModal(props: BlockModalProps) {
             >
               <Dialog.Panel
                 className={cn(
-                  'relative w-full max-w-md transform rounded-lg bg-white p-4 text-left',
-                  'align-middle shadow-xl transition-all'
+                  'flex flex-col gap-0 w-full max-w-md transform rounded-lg bg-white p-4 pb-3 text-left',
+                  'align-middle shadow-xl transition-all text-slate-800'
                 )}
               >
-                <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                <Dialog.Title as="h2" className={cn('pb-2 text-lg font-medium leading-6 border-b')}>
                   {note.title}
                 </Dialog.Title>
-                <div className="mt-2">{parse(note.content)}</div>
-
-                <button
-                  type="button"
-                  className={cn(
-                    'absolute bg-white z-10 rounded-full shadow-md',
-                    '-top-2 -right-2 p-1 hover:-top-3 hover:-right-3 hover:p-1.5',
-                    'transition-all duration-150 ease-in-out'
-                  )}
-                  onClick={props.closeModal}
-                >
-                  <VscChromeClose />
-                </button>
+                <div className="py-2">{parse(note.content)}</div>
+                <div className={cn('flex items-center justify-end')}>
+                  <button
+                    type="button"
+                    className={cn(
+                      'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
+                      'focus:outline-none focus:ring-0 focus:ring-offset-0'
+                    )}
+                    onClick={props.closeModal}
+                  >
+                    CLOSE
+                  </button>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
