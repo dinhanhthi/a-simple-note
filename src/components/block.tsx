@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import parse from 'html-react-parser'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 import { Note } from '../additional'
 import BlockModal from './blockModal'
@@ -12,21 +13,32 @@ type BlockProps = {
 
 export default function Block(props: BlockProps) {
   const note = props.note
+  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
+    router.push('/')
     setIsOpen(false)
   }
 
-  function openModal() {
+  function openModal(noteId: string) {
+    router.push(`/?note=${noteId}`)
     setIsOpen(true)
   }
+
+  useEffect(() => {
+    if (router.query.note === note.id) {
+      setIsOpen(true)
+    } else {
+      setIsOpen(false)
+    }
+  }, [note.id, router.query.note])
 
   return (
     <>
       <div
-        onClick={openModal}
+        onClick={() => openModal(note.id)}
         className={cn(
           'an-block p-[1px] flex-1 cursor-pointer min-w-[400px] max-w-[500px] min-h-[200px]',
           'an-shadow-soft-xl overflow-hidden an-bg-clip-border hover:rounded-none rounded-xl',
