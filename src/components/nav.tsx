@@ -15,7 +15,7 @@ export default function Navigation(props: NavigationProps) {
         <div className={cn('flex flex-1 items-center justify-center gap-4')}>
           <Link className={cn('flex items-center gap-3')} href={'/'}>
             <NavIcon />
-            <div className={cn('text-primary whitespace-nowrap font-normal text-lg')}>
+            <div className={cn('an-text-rainbow whitespace-nowrap font-normal text-lg')}>
               AtomicNote
             </div>
           </Link>

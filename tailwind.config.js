@@ -5,11 +5,12 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
     './lib/config.ts'
   ],
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
   theme: {
     extend: {
       colors: {
-        primary: '#86efac' // green-300
+        primary: '#86efac', // green-300
+        'primary-dark': 'rgb(22 163 74)' // green-600
       }
     }
   }

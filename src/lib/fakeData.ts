@@ -6,7 +6,7 @@ export const fakeNotes = (): Note[] => {
     notes.push({
       id: `${i}`,
       title: `This is the title of Note ${i}`,
-      content: `<p>Content ${i} with <b>some texts</b> and <cde>some code</code></p>`,
+      content: `<p>Content ${i} with <b>some texts</b> and <code>some code</code></p>`,
       createdAt: randomDate(),
       updatedAt: randomDate()
     })

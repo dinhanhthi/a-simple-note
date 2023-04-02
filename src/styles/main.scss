@@ -2,14 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+.an-text-rainbow {
+  background: linear-gradient(140deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .an-shadow-soft-xl {
-  --tw-shadow: 0 20px 27px 0 rgba(0,0,0,0.05);
-  --tw-shadow-colored: 0 20px 27px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --an-shadow-color: rgba(0, 0, 0, 0.05);
+  --tw-shadow: 0px 0px 10px 0px var(--an-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 
 .an-bg-clip-border {
   background-clip: border-box;
+}
+
+.an-block {
+  --border-size: 1px;
+  --border-angle: 0turn;
+  --an-box-transparent: 100%;
+  background-image: conic-gradient(from var(--border-angle), #fff, #fff, #fff),
+    conic-gradient(from var(--border-angle), transparent var(--an-box-transparent), #d2a8ff, #ff7b72);
+  background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),
+    cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  animation: bg-spin 2s linear infinite;
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+
+  &:hover {
+    --an-box-transparent: 20%;
+  }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0turn;
 }
 
 .an-scrollbar {
