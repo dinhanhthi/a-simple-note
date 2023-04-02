@@ -3,6 +3,7 @@ import parse from 'html-react-parser'
 import { useState } from 'react'
 
 import { Note } from '../additional'
+import BlockModal from './blockModal'
 
 type BlockProps = {
   note: Note
@@ -12,7 +13,7 @@ type BlockProps = {
 export default function Block(props: BlockProps) {
   const note = props.note
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
     setIsOpen(false)
@@ -23,29 +24,27 @@ export default function Block(props: BlockProps) {
   }
 
   return (
-    <div
-      onClick={openModal}
-      className={cn(
-        'an-block p-[1px] flex-1 cursor-pointer min-w-[400px] max-w-[500px] min-h-[200px]',
-        'an-shadow-soft-xl overflow-hidden an-bg-clip-border hover:rounded-none rounded-xl',
-        'transition-all duration-100'
-      )}
-    >
+    <>
       <div
+        onClick={openModal}
         className={cn(
-          'flex flex-col gap-2 justify-start p-3 text-slate-700 bg-white rounded-xl h-full overflow-hidden'
+          'an-block p-[1px] flex-1 cursor-pointer min-w-[400px] max-w-[500px] min-h-[200px]',
+          'an-shadow-soft-xl overflow-hidden an-bg-clip-border hover:rounded-none rounded-xl',
+          'transition-all duration-200'
         )}
       >
         <div
           className={cn(
-            // 'font-semibold h-fit text-base px-1 pb-2 border-b group-hover:text-primary-dark'
-            'font-semibold h-fit text-base px-1 pb-2 border-b'
+            'flex flex-col gap-2 justify-start p-3 text-slate-700 bg-white rounded-xl h-full overflow-hidden'
           )}
         >
-          {note.title}
+          <div className={cn('font-semibold h-fit text-base px-1 pb-2 border-b')}>{note.title}</div>
+          <div className={cn('flex-1 p-1 rounded-xl text-[0.9rem] prose')}>
+            {parse(note.content)}
+          </div>
         </div>
-        <div className={cn('flex-1 p-1 rounded-xl text-[0.9rem] prose')}>{parse(note.content)}</div>
       </div>
-    </div>
+      <BlockModal note={note} isOpen={isOpen} closeModal={closeModal} />
+    </>
   )
 }
