@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
 import parse from 'html-react-parser'
 import { Fragment } from 'react'
+import { VscChromeClose } from 'react-icons/vsc'
 
 import { Note } from '../additional'
 
@@ -44,7 +45,7 @@ export default function BlockModal(props: BlockModalProps) {
             >
               <Dialog.Panel
                 className={cn(
-                  'w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left',
+                  'relative w-full max-w-md transform rounded-lg bg-white p-4 text-left',
                   'align-middle shadow-xl transition-all'
                 )}
               >
@@ -53,15 +54,17 @@ export default function BlockModal(props: BlockModalProps) {
                 </Dialog.Title>
                 <div className="mt-2">{parse(note.content)}</div>
 
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={props.closeModal}
-                  >
-                    Close
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className={cn(
+                    'absolute bg-white z-10 rounded-full shadow-md',
+                    '-top-2 -right-2 p-1 hover:-top-3 hover:-right-3 hover:p-1.5',
+                    'transition-all duration-150 ease-in-out'
+                  )}
+                  onClick={props.closeModal}
+                >
+                  <VscChromeClose />
+                </button>
               </Dialog.Panel>
             </Transition.Child>
           </div>
