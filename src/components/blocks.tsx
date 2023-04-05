@@ -15,7 +15,7 @@ export default function Blocks(props: BlocksProps) {
         <div className={cn('container mx-auto flex flex-col w-full items-center p-6 xl:max-w-4xl')}>
           <div className={cn('flex gap-4 flex-wrap justify-center')}>
             {props.notes.map(note => (
-              <Block key={note.id} note={note} />
+              <Block key={note._id} note={note} />
             ))}
           </div>
         </div>

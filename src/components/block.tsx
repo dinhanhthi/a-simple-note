@@ -28,17 +28,17 @@ export default function Block(props: BlockProps) {
   }
 
   useEffect(() => {
-    if (router.query.note === note.id) {
+    if (router.query.note === note._id) {
       setIsOpen(true)
     } else {
       setIsOpen(false)
     }
-  }, [note.id, router.query.note])
+  }, [note._id, router.query.note])
 
   return (
     <>
       <div
-        onClick={() => openModal(note.id)}
+        onClick={() => openModal(note._id)}
         className={cn(
           'an-block p-[1px] flex-1 cursor-pointer min-w-[400px] max-w-[500px] min-h-[200px]',
           'an-shadow-soft-xl overflow-hidden an-bg-clip-border hover:rounded-none rounded-xl',
