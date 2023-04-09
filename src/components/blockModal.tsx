@@ -4,6 +4,7 @@ import parse from 'html-react-parser'
 import { Fragment } from 'react'
 
 import { Note } from '../interface'
+import Editor from './editor/editor'
 
 type BlockModalProps = {
   isOpen: boolean
@@ -51,7 +52,10 @@ export default function BlockModal(props: BlockModalProps) {
                 <Dialog.Title as="h2" className={cn('pb-2 text-lg font-medium leading-6 border-b')}>
                   {note.title}
                 </Dialog.Title>
-                <div className="prose py-2">{parse(note.content)}</div>
+                {/* <div className="prose py-2">{parse(note.content)}</div> */}
+                <div className="prose py-2">
+                  <Editor />
+                </div>
                 <div className={cn('flex items-center justify-end gap-3')}>
                   <button
                     type="button"
