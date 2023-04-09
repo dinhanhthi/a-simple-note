@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import Blocks from '../components/blocks'
 import Navigation from '../components/nav'
+import NewNoteButton from '../components/newNoteButton'
 import { Note } from '../interface'
 import clientPromise from '../lib/mongodb'
 
@@ -21,9 +22,10 @@ export default function Home(props: HomeProps) {
         <link rel="icon" href="/icon.svg" />
       </Head>
       <main>
-        <div className={cn('flex h-screen flex-col justify-between')}>
+        <div className={cn('relative flex h-screen flex-col justify-between')}>
           <Navigation />
           <Blocks notes={props.notes} />
+          <NewNoteButton className="absolute bottom-4 left-4" />
         </div>
       </main>
     </>
