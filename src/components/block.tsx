@@ -22,7 +22,8 @@ export default function Block(props: BlockProps) {
     setIsOpen(false)
   }
 
-  function openModal(noteId: string) {
+  function openModal(noteId?: string) {
+    if (!noteId) return
     router.push(`/?note=${noteId}`)
     setIsOpen(true)
   }

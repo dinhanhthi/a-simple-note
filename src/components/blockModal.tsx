@@ -52,7 +52,17 @@ export default function BlockModal(props: BlockModalProps) {
                   {note.title}
                 </Dialog.Title>
                 <div className="prose py-2">{parse(note.content)}</div>
-                <div className={cn('flex items-center justify-end')}>
+                <div className={cn('flex items-center justify-end gap-3')}>
+                  <button
+                    type="button"
+                    className={cn(
+                      'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
+                      'focus:outline-none focus:ring-0 focus:ring-offset-0'
+                    )}
+                    onClick={saveNote}
+                  >
+                    SAVE
+                  </button>
                   <button
                     type="button"
                     className={cn(
@@ -71,4 +81,9 @@ export default function BlockModal(props: BlockModalProps) {
       </Dialog>
     </Transition>
   )
+
+  function saveNote() {
+    /* ###Thi */ console.log('saveNote')
+    props.closeModal()
+  }
 }
