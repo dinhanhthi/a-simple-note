@@ -198,7 +198,7 @@ function FloatingLinkEditor({ editor }: { editor: LexicalEditor }) {
             }}
           />
           <div
-            className="an-edt-toolbar-item"
+            className="an-edt-toolbar-item bg-slate-100"
             role="button"
             tabIndex={0}
             onMouseDown={event => event.preventDefault()}
@@ -226,7 +226,7 @@ function FloatingLinkEditor({ editor }: { editor: LexicalEditor }) {
               {linkUrl}
             </a>
             <div
-              className="an-edt-toolbar-item"
+              className="an-edt-toolbar-item bg-slate-100"
               role="button"
               tabIndex={0}
               onMouseDown={event => event.preventDefault()}
@@ -552,7 +552,9 @@ export default function ToolbarPlugin() {
       {supportedBlockTypes.has(blockType) && (
         <>
           <button
-            className={cn('an-edt-toolbar-item justify-center gap-3 bg-none !py-1')}
+            className={cn(
+              'an-edt-toolbar-item justify-between gap-3 bg-none !py-1 !rounded-md min-w-[170px]'
+            )}
             onClick={() => setShowBlockOptionsDropDown(!showBlockOptionsDropDown)}
             aria-label="Formatting Options"
           >

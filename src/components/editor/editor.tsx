@@ -83,7 +83,7 @@ export default function Editor(props: EditorProps) {
           <LinkPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
-          <ListMaxIndentLevelPlugin />
+          <ListMaxIndentLevelPlugin maxDepth={3} />
         </div>
         <div className={cn('flex items-center justify-between pt-2.5')}>
           <ActionsPlugin />

@@ -100,7 +100,7 @@
 
 // Editor
 .an-edt-toolbar-item {
-  @apply flex cursor-pointer items-center justify-center rounded-lg bg-none p-1.5 opacity-80;
+  @apply flex cursor-pointer items-center rounded-lg bg-none p-1.5 opacity-80;
   &.active,
   &:hover:not(:disabled) {
     @apply bg-gray-100 opacity-100;
