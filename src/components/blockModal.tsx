@@ -1,6 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
-import parse from 'html-react-parser'
 import { Fragment } from 'react'
 
 import { Note } from '../interface'
@@ -53,9 +52,7 @@ export default function BlockModal(props: BlockModalProps) {
                   {note.title}
                 </Dialog.Title>
                 {/* <div className="prose py-2">{parse(note.content)}</div> */}
-                <div className="prose py-2">
-                  <Editor />
-                </div>
+                <Editor />
                 <div className={cn('flex items-center justify-end gap-3')}>
                   <button
                     type="button"

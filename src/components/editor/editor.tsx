@@ -13,15 +13,20 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
+import { BsPencil } from 'react-icons/bs'
 
 import ExampleTheme from './exampleTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin'
-import prepopulatedText from './sampleText.js'
 
 function Placeholder() {
-  return <div className="editor-placeholder">Play around with the Markdown plugin...</div>
+  return (
+    <div className="absolute left-2 top-1 flex gap-2 truncate text-slate-500">
+      <BsPencil />
+      <div>Take a note...</div>
+    </div>
+  )
 }
 
 const editorConfig: any = {
@@ -50,11 +55,12 @@ const editorConfig: any = {
 export default function Editor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container">
+      <div className="flex flex-col divide-y">
+        {/* <div className="editor-container"> */}
         <ToolbarPlugin />
         <div className="editor-inner">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" />}
+            contentEditable={<ContentEditable className="prose" />} // editor-input
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />

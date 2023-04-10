@@ -293,16 +293,16 @@ pre::-webkit-scrollbar-thumb {
   background: #999;
 }
 
-.toolbar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1px;
-  background: #fff;
-  padding: 4px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  vertical-align: middle;
-}
+// .toolbar {
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 1px;
+//   background: #fff;
+//   padding: 4px;
+//   border-top-left-radius: 10px;
+//   border-top-right-radius: 10px;
+//   vertical-align: middle;
+// }
 
 .toolbar button.toolbar-item {
   border: 0;
@@ -446,34 +446,6 @@ pre::-webkit-scrollbar-thumb {
   height: 18px;
   margin: 2px;
 }
-
-// #block-controls span.block-type.paragraph {
-//   background-image: url(images/icons/text-paragraph.svg);
-// }
-
-// #block-controls span.block-type.h1 {
-//   background-image: url(images/icons/type-h1.svg);
-// }
-
-// #block-controls span.block-type.h2 {
-//   background-image: url(images/icons/type-h2.svg);
-// }
-
-// #block-controls span.block-type.quote {
-//   background-image: url(images/icons/chat-square-quote.svg);
-// }
-
-// #block-controls span.block-type.ul {
-//   background-image: url(images/icons/list-ul.svg);
-// }
-
-// #block-controls span.block-type.ol {
-//   background-image: url(images/icons/list-ol.svg);
-// }
-
-// #block-controls span.block-type.code {
-//   background-image: url(images/icons/code.svg);
-// }
 
 .dropdown {
   z-index: 100;

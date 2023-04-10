@@ -87,3 +87,14 @@
     }
   }
 }
+
+// Editor
+.an-edt-toolbar-item {
+  @apply flex items-center justify-center p-1.5 cursor-pointer bg-none rounded-lg opacity-80;
+  &.active, &:hover:not(:disabled) {
+    @apply bg-gray-100 opacity-100;
+  }
+  &:disabled {
+    @apply cursor-not-allowed;
+  }
+}

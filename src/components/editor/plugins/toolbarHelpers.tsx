@@ -1,0 +1,65 @@
+import { BsBlockquoteLeft, BsCodeSlash, BsTextParagraph } from 'react-icons/bs'
+import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md'
+
+export const formatTextTypes: {
+  type: string
+  text: string
+  icon: JSX.Element
+}[] = [
+  {
+    type: 'paragraph',
+    text: 'Normal',
+    icon: getBlockTypeIcon('paragraph')
+  },
+  {
+    type: 'h1',
+    text: 'Large Heading (H1)',
+    icon: getBlockTypeIcon('h1')
+  },
+  {
+    type: 'h2',
+    text: 'Medium Heading (H2)',
+    icon: getBlockTypeIcon('h2')
+  },
+  {
+    type: 'ul',
+    text: 'Unordered List',
+    icon: getBlockTypeIcon('ul')
+  },
+  {
+    type: 'ol',
+    text: 'Ordered List',
+    icon: getBlockTypeIcon('ol')
+  },
+  {
+    type: 'quote',
+    text: 'Quote',
+    icon: getBlockTypeIcon('quote')
+  },
+  {
+    type: 'code',
+    text: 'Code',
+    icon: getBlockTypeIcon('code')
+  }
+]
+
+export function getBlockTypeIcon(type: string): JSX.Element {
+  switch (type) {
+    case 'paragraph':
+      return <BsTextParagraph className="icon" />
+    case 'h1':
+      return <span className="text-sm">H1</span>
+    case 'h2':
+      return <span className="text-sm">H2</span>
+    case 'ol':
+      return <MdFormatListBulleted className="icon" />
+    case 'ul':
+      return <MdFormatListNumbered className="icon" />
+    case 'quote':
+      return <BsBlockquoteLeft className="icon" />
+    case 'code':
+      return <BsCodeSlash className="icon" />
+    default:
+      return <></>
+  }
+}

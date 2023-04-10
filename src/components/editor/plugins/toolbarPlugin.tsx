@@ -17,6 +17,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text'
 import { $isAtNodeEnd, $wrapNodes } from '@lexical/selection'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
+import cn from 'classnames'
 import {
   $createParagraphNode,
   $getNodeByKey,
@@ -30,16 +31,11 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { BiStrikethrough } from 'react-icons/bi'
-import {
-  BsBlockquoteLeft,
-  BsChevronDown,
-  BsCode,
-  BsCodeSlash,
-  BsTextParagraph
-} from 'react-icons/bs'
+import { BsChevronDown, BsCode } from 'react-icons/bs'
 import { GoLink } from 'react-icons/go'
-import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md'
 import { RxFontBold, RxFontItalic, RxUnderline } from 'react-icons/rx'
+
+import { formatTextTypes, getBlockTypeIcon } from './toolbarHelpers'
 
 const LowPriority = 1
 
@@ -284,6 +280,25 @@ function BlockOptionsDropdownList({
     }
   }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef])
 
+  function formatActionMethod(type: string) {
+    switch (type) {
+      case 'paragraph':
+        return formatParagraph
+      case 'h1':
+        return formatLargeHeading
+      case 'h2':
+        return formatSmallHeading
+      case 'quote':
+        return formatQuote
+      case 'code':
+        return formatCode
+      case 'ul':
+        return formatBulletList
+      case 'ol':
+        return formatNumberedList
+    }
+  }
+
   const formatParagraph = () => {
     if (blockType !== 'paragraph') {
       editor.update(() => {
@@ -368,42 +383,25 @@ function BlockOptionsDropdownList({
   }
 
   return (
-    <div className="dropdown" ref={dropDownRef}>
-      <button className="item" onClick={formatParagraph}>
-        {getBlockTypeIcon('paragraph')}
-        <span className="text">Normal</span>
-        {blockType === 'paragraph' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatLargeHeading}>
-        {getBlockTypeIcon('h1')}
-        <span className="text">Large Heading</span>
-        {blockType === 'h1' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatSmallHeading}>
-        {getBlockTypeIcon('h2')}
-        <span className="text">Small Heading</span>
-        {blockType === 'h2' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatBulletList}>
-        {getBlockTypeIcon('bullet-list')}
-        <span className="text">Bullet List</span>
-        {blockType === 'ul' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatNumberedList}>
-        {getBlockTypeIcon('numbered-list')}
-        <span className="text">Numbered List</span>
-        {blockType === 'ol' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatQuote}>
-        {getBlockTypeIcon('quote')}
-        <span className="text">Quote</span>
-        {blockType === 'quote' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatCode}>
-        {getBlockTypeIcon('code')}
-        <span className="text">Code Block</span>
-        {blockType === 'code' && <span className="active" />}
-      </button>
+    <div
+      className={cn('absolute z-50 flex flex-col rounded-lg bg-white shadow-xl p-2')}
+      ref={dropDownRef}
+    >
+      {formatTextTypes.map(format => {
+        return (
+          <button
+            className={cn(
+              'flex items-center gap-2 opacity-80 hover:opacity-100 hover:bg-slate-100 px-2 py-1.5 rounded-md'
+            )}
+            key={format.type}
+            onClick={formatActionMethod(format.type)}
+          >
+            {format.icon}
+            <span className="text-sm">{format.text}</span>
+            {blockType === format.type && <span className="active" />}
+          </button>
+        )
+      })}
     </div>
   )
 }
@@ -504,18 +502,17 @@ export default function ToolbarPlugin() {
   }, [editor, isLink])
 
   return (
-    <div className="toolbar" ref={toolbarRef}>
+    <div className="flex flex-row items-center gap-1 py-1" ref={toolbarRef}>
       {supportedBlockTypes.has(blockType) && (
         <>
           <button
-            className="toolbar-item block-controls"
+            className={cn('an-edt-toolbar-item justify-center gap-3 bg-none !py-1')}
             onClick={() => setShowBlockOptionsDropDown(!showBlockOptionsDropDown)}
             aria-label="Formatting Options"
           >
-            {/* <span className={'icon block-type ' + blockType} /> */}
             {getBlockTypeIcon(blockType)}
-            <span className="text">{(blockTypeToBlockName as any)[blockType]}</span>
-            <BsChevronDown className="chevron-down" />
+            <span className="text-sm">{(blockTypeToBlockName as any)[blockType]}</span>
+            <BsChevronDown />
           </button>
           {showBlockOptionsDropDown &&
             createPortal(
@@ -546,7 +543,8 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
             }}
-            className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
+            // className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
+            className={cn('an-edt-toolbar-item', { active: isBold })}
             aria-label="Format Bold"
           >
             <RxFontBold className="format" />
@@ -555,7 +553,8 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
             }}
-            className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
+            // className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
+            className={cn('an-edt-toolbar-item', { active: isItalic })}
             aria-label="Format Italics"
           >
             <RxFontItalic className="format" />
@@ -564,7 +563,8 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
             }}
-            className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
+            // className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
+            className={cn('an-edt-toolbar-item', { active: isUnderline })}
             aria-label="Format Underline"
           >
             <RxUnderline className="format" />
@@ -573,7 +573,8 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
             }}
-            className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
+            // className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
+            className={cn('an-edt-toolbar-item', { active: isStrikethrough })}
             aria-label="Format Strikethrough"
           >
             <BiStrikethrough className="format" />
@@ -582,14 +583,16 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
             }}
-            className={'toolbar-item spaced ' + (isCode ? 'active' : '')}
+            // className={'toolbar-item spaced ' + (isCode ? 'active' : '')}
+            className={cn('an-edt-toolbar-item', { active: isCode })}
             aria-label="Insert Code"
           >
             <BsCode className="format" />
           </button>
           <button
             onClick={insertLink}
-            className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
+            // className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
+            className={cn('an-edt-toolbar-item', { active: isLink })}
             aria-label="Insert Link"
           >
             <GoLink className="format" />
@@ -599,25 +602,4 @@ export default function ToolbarPlugin() {
       )}
     </div>
   )
-}
-
-function getBlockTypeIcon(type: string) {
-  switch (type) {
-    case 'paragraph':
-      return <BsTextParagraph className="icon" />
-    case 'h1':
-      return <span className="icon">H1</span>
-    case 'h2':
-      return <span className="icon">H2</span>
-    case 'bullet-list':
-    case 'ol':
-      return <MdFormatListBulleted className="icon" />
-    case 'numbered-list':
-    case 'ul':
-      return <MdFormatListNumbered className="icon" />
-    case 'quote':
-      return <BsBlockquoteLeft className="icon" />
-    case 'code':
-      return <BsCodeSlash className="icon" />
-  }
 }
