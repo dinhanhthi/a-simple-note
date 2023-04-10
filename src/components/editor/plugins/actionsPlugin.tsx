@@ -26,15 +26,13 @@ export default function ActionsPlugin(): JSX.Element {
   }, [editor])
 
   return (
-    <div className="actions">
-      <button
-        className="action-button"
-        onClick={handleMarkdownToggle}
-        title="Convert From Markdown"
-        aria-label="Convert from markdown"
-      >
-        <BsMarkdown />
-      </button>
-    </div>
+    <button
+      className="flex items-center justify-center opacity-70 hover:opacity-100"
+      onClick={handleMarkdownToggle}
+      title="Convert From Markdown"
+      aria-label="Convert from markdown"
+    >
+      <BsMarkdown className="h-6 text-xl" />
+    </button>
   )
 }

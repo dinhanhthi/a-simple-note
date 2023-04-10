@@ -54,10 +54,6 @@ const blockTypeToBlockName = {
   ul: 'Bulleted List'
 }
 
-function Divider() {
-  return <div className="divider" />
-}
-
 function positionEditorElement(editor: HTMLDivElement, rect?: DOMRect) {
   if (!rect) {
     editor.style.opacity = '0'
@@ -524,7 +520,6 @@ export default function ToolbarPlugin() {
               />,
               document.body
             )}
-          <Divider />
         </>
       )}
       {blockType === 'code' ? (
@@ -543,7 +538,6 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
             }}
-            // className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
             className={cn('an-edt-toolbar-item', { active: isBold })}
             aria-label="Format Bold"
           >
@@ -553,7 +547,6 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
             }}
-            // className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
             className={cn('an-edt-toolbar-item', { active: isItalic })}
             aria-label="Format Italics"
           >
@@ -563,7 +556,6 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
             }}
-            // className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
             className={cn('an-edt-toolbar-item', { active: isUnderline })}
             aria-label="Format Underline"
           >
@@ -573,7 +565,6 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
             }}
-            // className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
             className={cn('an-edt-toolbar-item', { active: isStrikethrough })}
             aria-label="Format Strikethrough"
           >
@@ -583,7 +574,6 @@ export default function ToolbarPlugin() {
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
             }}
-            // className={'toolbar-item spaced ' + (isCode ? 'active' : '')}
             className={cn('an-edt-toolbar-item', { active: isCode })}
             aria-label="Insert Code"
           >
@@ -591,7 +581,6 @@ export default function ToolbarPlugin() {
           </button>
           <button
             onClick={insertLink}
-            // className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
             className={cn('an-edt-toolbar-item', { active: isLink })}
             aria-label="Insert Link"
           >

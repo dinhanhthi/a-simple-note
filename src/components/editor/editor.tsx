@@ -13,7 +13,7 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
-import { BsPencil } from 'react-icons/bs'
+import cn from 'classnames'
 
 import ExampleTheme from './exampleTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
@@ -22,9 +22,8 @@ import ToolbarPlugin from './plugins/toolbarPlugin'
 
 function Placeholder() {
   return (
-    <div className="absolute left-2 top-1 flex gap-2 truncate text-slate-500">
-      <BsPencil />
-      <div>Take a note...</div>
+    <div className="absolute left-0 top-4 animate-pulse gap-2 truncate text-slate-500">
+      Take a note...
     </div>
   )
 }
@@ -52,15 +51,26 @@ const editorConfig: any = {
   ]
 }
 
-export default function Editor() {
+type EditorProps = {
+  saveNote: () => void
+  closeModal: () => void
+}
+
+export default function Editor(props: EditorProps) {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="flex flex-col divide-y">
-        {/* <div className="editor-container"> */}
+      <div className="flex h-full flex-col divide-y overflow-auto">
         <ToolbarPlugin />
-        <div className="editor-inner">
+        <div className="an-scrollbar relative h-full flex-1 overflow-auto">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="prose" />} // editor-input
+            contentEditable={
+              <ContentEditable
+                className={cn(
+                  'prose relative min-h-[200px] h-full overflow-auto !max-w-full py-4 leading-normal',
+                  'outline-none'
+                )}
+              />
+            }
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
@@ -70,7 +80,31 @@ export default function Editor() {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
         </div>
-        <ActionsPlugin />
+        <div className={cn('flex items-center justify-between pt-2')}>
+          <ActionsPlugin />
+          <div className="flex items-center justify-center gap-3">
+            <button
+              type="button"
+              className={cn(
+                'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
+                'focus:outline-none focus:ring-0 focus:ring-offset-0'
+              )}
+              onClick={props.saveNote}
+            >
+              SAVE
+            </button>
+            <button
+              type="button"
+              className={cn(
+                'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
+                'focus:outline-none focus:ring-0 focus:ring-offset-0'
+              )}
+              onClick={props.closeModal}
+            >
+              CLOSE
+            </button>
+          </div>
+        </div>
       </div>
     </LexicalComposer>
   )

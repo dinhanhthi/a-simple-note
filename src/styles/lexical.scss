@@ -14,29 +14,6 @@
   vertical-align: -0.25em;
 }
 
-.action-button {
-  background-color: #eee;
-  border: 0;
-  padding: 8px 12px;
-  position: relative;
-  margin-left: 5px;
-  border-radius: 15px;
-  color: #222;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.action-button:hover {
-  background-color: #ddd;
-  color: #000;
-}
-
-button.action-button:disabled {
-  opacity: 0.6;
-  background: #eee;
-  cursor: not-allowed;
-}
-
 .other h2 {
   font-size: 18px;
   color: #444;
@@ -72,38 +49,6 @@ h1 {
 
 .rtl {
   text-align: right;
-}
-
-.editor-container {
-  margin: 20px auto 20px auto;
-  border-radius: 2px;
-  max-width: 600px;
-  color: #000;
-  position: relative;
-  line-height: 20px;
-  font-weight: 400;
-  text-align: left;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.editor-inner {
-  background: #fff;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  position: relative;
-}
-
-.editor-input {
-  min-height: 150px;
-  resize: none;
-  font-size: 15px;
-  caret-color: rgb(5, 5, 5);
-  position: relative;
-  tab-size: 1;
-  outline: 0;
-  padding: 15px 10px;
-  caret-color: #444;
 }
 
 .editor-placeholder {
@@ -352,12 +297,6 @@ pre::-webkit-scrollbar-thumb {
   background-color: #eee;
 }
 
-.toolbar .divider {
-  width: 1px;
-  background-color: #eee;
-  margin: 0 4px;
-}
-
 .toolbar select.toolbar-item {
   border: 0;
   display: flex;
@@ -592,8 +531,7 @@ pre::-webkit-scrollbar-thumb {
   background-color: #eee;
 }
 
-.link-editor .button i,
-.actions i {
+.link-editor .button i {
   background-size: contain;
   display: inline-block;
   height: 20px;

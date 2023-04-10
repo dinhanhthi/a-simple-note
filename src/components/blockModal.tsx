@@ -44,7 +44,7 @@ export default function BlockModal(props: BlockModalProps) {
             >
               <Dialog.Panel
                 className={cn(
-                  'flex flex-col gap-0 w-full max-w-md transform rounded-lg bg-white p-4 pb-3 text-left',
+                  'flex flex-col gap-0 w-full max-w-4xl max-h-[80vh] transform rounded-lg bg-white p-4 pb-3 text-left',
                   'align-middle shadow-xl transition-all text-slate-800'
                 )}
               >
@@ -52,29 +52,7 @@ export default function BlockModal(props: BlockModalProps) {
                   {note.title}
                 </Dialog.Title>
                 {/* <div className="prose py-2">{parse(note.content)}</div> */}
-                <Editor />
-                <div className={cn('flex items-center justify-end gap-3')}>
-                  <button
-                    type="button"
-                    className={cn(
-                      'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
-                      'focus:outline-none focus:ring-0 focus:ring-offset-0'
-                    )}
-                    onClick={saveNote}
-                  >
-                    SAVE
-                  </button>
-                  <button
-                    type="button"
-                    className={cn(
-                      'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
-                      'focus:outline-none focus:ring-0 focus:ring-offset-0'
-                    )}
-                    onClick={props.closeModal}
-                  >
-                    CLOSE
-                  </button>
-                </div>
+                <Editor saveNote={saveNote} closeModal={props.closeModal} />
               </Dialog.Panel>
             </Transition.Child>
           </div>
