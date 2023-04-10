@@ -18,6 +18,7 @@ import cn from 'classnames'
 import ExampleTheme from './exampleTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
+import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin'
 import prepopulatedText from './sampleText'
 
@@ -82,6 +83,7 @@ export default function Editor(props: EditorProps) {
           <LinkPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
+          <ListMaxIndentLevelPlugin />
         </div>
         <div className={cn('flex items-center justify-between pt-2.5')}>
           <ActionsPlugin />
