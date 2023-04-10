@@ -66,7 +66,8 @@ export default function Editor(props: EditorProps) {
             contentEditable={
               <ContentEditable
                 className={cn(
-                  'prose relative min-h-[200px] h-full overflow-auto !max-w-full py-4 leading-normal',
+                  'prose relative min-h-[200px] h-full overflow-auto py-4 leading-normal',
+                  'lg:prose-lg xl:prose-xl 2xl:prose-2xl',
                   'outline-none'
                 )}
               />

@@ -22,6 +22,11 @@ export const formatTextTypes: {
     icon: getBlockTypeIcon('h2')
   },
   {
+    type: 'h3',
+    text: 'Small Heading (H3)',
+    icon: getBlockTypeIcon('h3')
+  },
+  {
     type: 'ul',
     text: 'Unordered List',
     icon: getBlockTypeIcon('ul')
@@ -51,6 +56,8 @@ export function getBlockTypeIcon(type: string): JSX.Element {
       return <span className="text-sm">H1</span>
     case 'h2':
       return <span className="text-sm">H2</span>
+    case 'h3':
+      return <span className="text-sm">H3</span>
     case 'ol':
       return <MdFormatListBulleted className="icon" />
     case 'ul':

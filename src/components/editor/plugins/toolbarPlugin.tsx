@@ -39,15 +39,13 @@ import { formatTextTypes, getBlockTypeIcon } from './toolbarHelpers'
 
 const LowPriority = 1
 
-const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol'])
+const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'h3', 'ul', 'ol'])
 
 const blockTypeToBlockName = {
   code: 'Code Block',
   h1: 'Large Heading',
-  h2: 'Small Heading',
-  h3: 'Heading',
-  h4: 'Heading',
-  h5: 'Heading',
+  h2: 'Medium Heading',
+  h3: 'Small Heading',
   ol: 'Numbered List',
   paragraph: 'Normal',
   quote: 'Quote',
@@ -283,6 +281,8 @@ function BlockOptionsDropdownList({
       case 'h1':
         return formatLargeHeading
       case 'h2':
+        return formatMediumHeading
+      case 'h3':
         return formatSmallHeading
       case 'quote':
         return formatQuote
@@ -321,13 +321,26 @@ function BlockOptionsDropdownList({
     setShowBlockOptionsDropDown(false)
   }
 
-  const formatSmallHeading = () => {
+  const formatMediumHeading = () => {
     if (blockType !== 'h2') {
       editor.update(() => {
         const selection = $getSelection()
 
         if ($isRangeSelection(selection)) {
           $wrapNodes(selection, () => $createHeadingNode('h2'))
+        }
+      })
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatSmallHeading = () => {
+    if (blockType !== 'h3') {
+      editor.update(() => {
+        const selection = $getSelection()
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createHeadingNode('h3'))
         }
       })
     }
