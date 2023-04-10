@@ -4,6 +4,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $createTextNode, $getRoot } from 'lexical'
 import * as React from 'react'
 import { useCallback } from 'react'
+import { BsMarkdown } from 'react-icons/bs'
 
 import { PLAYGROUND_TRANSFORMERS } from './markdownTransformer'
 
@@ -32,7 +33,7 @@ export default function ActionsPlugin(): JSX.Element {
         title="Convert From Markdown"
         aria-label="Convert from markdown"
       >
-        <i className="markdown" />
+        <BsMarkdown />
       </button>
     </div>
   )

@@ -29,8 +29,17 @@ import {
 } from 'lexical'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { BsBlockquoteLeft, BsChevronDown, BsCode, BsTextParagraph } from 'react-icons/bs'
+import { BiStrikethrough } from 'react-icons/bi'
+import {
+  BsBlockquoteLeft,
+  BsChevronDown,
+  BsCode,
+  BsCodeSlash,
+  BsTextParagraph
+} from 'react-icons/bs'
+import { GoLink } from 'react-icons/go'
 import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md'
+import { RxFontBold, RxFontItalic, RxUnderline } from 'react-icons/rx'
 
 const LowPriority = 1
 
@@ -361,43 +370,36 @@ function BlockOptionsDropdownList({
   return (
     <div className="dropdown" ref={dropDownRef}>
       <button className="item" onClick={formatParagraph}>
-        {/* <span className="icon paragraph" /> */}
         {getBlockTypeIcon('paragraph')}
         <span className="text">Normal</span>
         {blockType === 'paragraph' && <span className="active" />}
       </button>
       <button className="item" onClick={formatLargeHeading}>
-        {/* <span className="icon large-heading" /> */}
         {getBlockTypeIcon('h1')}
         <span className="text">Large Heading</span>
         {blockType === 'h1' && <span className="active" />}
       </button>
       <button className="item" onClick={formatSmallHeading}>
-        {/* <span className="icon small-heading" /> */}
         {getBlockTypeIcon('h2')}
         <span className="text">Small Heading</span>
         {blockType === 'h2' && <span className="active" />}
       </button>
       <button className="item" onClick={formatBulletList}>
-        {/* <span className="icon bullet-list" /> */}
         {getBlockTypeIcon('bullet-list')}
         <span className="text">Bullet List</span>
         {blockType === 'ul' && <span className="active" />}
       </button>
       <button className="item" onClick={formatNumberedList}>
-        {/* <span className="icon numbered-list" /> */}
         {getBlockTypeIcon('numbered-list')}
         <span className="text">Numbered List</span>
         {blockType === 'ol' && <span className="active" />}
       </button>
       <button className="item" onClick={formatQuote}>
-        {/* <span className="icon quote" /> */}
         {getBlockTypeIcon('quote')}
         <span className="text">Quote</span>
         {blockType === 'quote' && <span className="active" />}
       </button>
       <button className="item" onClick={formatCode}>
-        {/* <span className="icon code" /> */}
         {getBlockTypeIcon('code')}
         <span className="text">Code Block</span>
         {blockType === 'code' && <span className="active" />}
@@ -531,7 +533,7 @@ export default function ToolbarPlugin() {
       {blockType === 'code' ? (
         <>
           <Select
-            className="toolbar-item code-language"
+            className="toolbar-item code-language mr-1"
             onChange={onCodeLanguageSelect}
             options={codeLanguges}
             value={codeLanguage}
@@ -547,7 +549,7 @@ export default function ToolbarPlugin() {
             className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
             aria-label="Format Bold"
           >
-            <i className="format bold" />
+            <RxFontBold className="format" />
           </button>
           <button
             onClick={() => {
@@ -556,7 +558,7 @@ export default function ToolbarPlugin() {
             className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
             aria-label="Format Italics"
           >
-            <i className="format italic" />
+            <RxFontItalic className="format" />
           </button>
           <button
             onClick={() => {
@@ -565,7 +567,7 @@ export default function ToolbarPlugin() {
             className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
             aria-label="Format Underline"
           >
-            <i className="format underline" />
+            <RxUnderline className="format" />
           </button>
           <button
             onClick={() => {
@@ -574,7 +576,7 @@ export default function ToolbarPlugin() {
             className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
             aria-label="Format Strikethrough"
           >
-            <i className="format strikethrough" />
+            <BiStrikethrough className="format" />
           </button>
           <button
             onClick={() => {
@@ -583,14 +585,14 @@ export default function ToolbarPlugin() {
             className={'toolbar-item spaced ' + (isCode ? 'active' : '')}
             aria-label="Insert Code"
           >
-            <i className="format code" />
+            <BsCode className="format" />
           </button>
           <button
             onClick={insertLink}
             className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
             aria-label="Insert Link"
           >
-            <i className="format link" />
+            <GoLink className="format" />
           </button>
           {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
         </>
@@ -616,6 +618,6 @@ function getBlockTypeIcon(type: string) {
     case 'quote':
       return <BsBlockquoteLeft className="icon" />
     case 'code':
-      return <BsCode className="icon" />
+      return <BsCodeSlash className="icon" />
   }
 }

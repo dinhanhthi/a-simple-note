@@ -168,7 +168,7 @@ h1 {
 }
 
 .editor-code:before {
-  content: attr(data-gutter);
+  content: attr(data-gutter) !important;
   position: absolute;
   background-color: #eee;
   left: 0;
@@ -181,7 +181,7 @@ h1 {
   min-width: 25px;
 }
 .editor-code:after {
-  content: attr(data-highlight-language);
+  content: attr(data-highlight-language) !important;
   top: 2%;
   right: 5px;
   padding: 3px;
@@ -227,6 +227,7 @@ h1 {
   margin: 0;
   margin-bottom: 8px;
   position: relative;
+  margin-top: 0 !important;
 }
 
 .editor-paragraph:last-child {
@@ -294,6 +295,7 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar {
   display: flex;
+  align-items: center;
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;
@@ -305,6 +307,9 @@ pre::-webkit-scrollbar-thumb {
 .toolbar button.toolbar-item {
   border: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   background: none;
   border-radius: 10px;
   padding: 8px;
@@ -623,87 +628,3 @@ pre::-webkit-scrollbar-thumb {
   width: 20px;
   vertical-align: -0.25em;
 }
-
-// i.undo {
-//   background-image: url(images/icons/arrow-counterclockwise.svg);
-// }
-
-// i.redo {
-//   background-image: url(images/icons/arrow-clockwise.svg);
-// }
-
-// .icon.paragraph {
-//   background-image: url(images/icons/text-paragraph.svg);
-// }
-
-// .icon.large-heading,
-// .icon.h1 {
-//   background-image: url(images/icons/type-h1.svg);
-// }
-
-// .icon.small-heading,
-// .icon.h2 {
-//   background-image: url(images/icons/type-h2.svg);
-// }
-
-// .icon.bullet-list,
-// .icon.ul {
-//   background-image: url(images/icons/list-ul.svg);
-// }
-
-// .icon.numbered-list,
-// .icon.ol {
-//   background-image: url(images/icons/list-ol.svg);
-// }
-
-// .icon.quote {
-//   background-image: url(images/icons/chat-square-quote.svg);
-// }
-
-// .icon.code {
-//   background-image: url(images/icons/code.svg);
-// }
-
-// i.bold {
-//   background-image: url(images/icons/type-bold.svg);
-// }
-
-// i.italic {
-//   background-image: url(images/icons/type-italic.svg);
-// }
-
-// i.underline {
-//   background-image: url(images/icons/type-underline.svg);
-// }
-
-// i.strikethrough {
-//   background-image: url(images/icons/type-strikethrough.svg);
-// }
-
-// i.code {
-//   background-image: url(images/icons/code.svg);
-// }
-
-// i.link {
-//   background-image: url(images/icons/link.svg);
-// }
-
-// i.left-align {
-//   background-image: url(images/icons/text-left.svg);
-// }
-
-// i.center-align {
-//   background-image: url(images/icons/text-center.svg);
-// }
-
-// i.right-align {
-//   background-image: url(images/icons/text-right.svg);
-// }
-
-// i.justify-align {
-//   background-image: url(images/icons/justify.svg);
-// }
-
-// i.markdown {
-//   background-image: url(images/icons/markdown.svg);
-// }
