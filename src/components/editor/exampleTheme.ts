@@ -4,20 +4,20 @@ const exampleTheme = {
   placeholder: 'editor-placeholder',
   paragraph: 'editor-paragraph',
   quote: 'editor-quote',
-  heading: {
-    h1: 'editor-heading-h1',
-    h2: 'editor-heading-h2',
-    h3: 'editor-heading-h3',
-    h4: 'editor-heading-h4',
-    h5: 'editor-heading-h5'
-  },
+  // heading: {
+  //   h1: 'editor-heading-h1',
+  //   h2: 'editor-heading-h2',
+  //   h3: 'editor-heading-h3',
+  //   h4: 'editor-heading-h4',
+  //   h5: 'editor-heading-h5'
+  // },
   list: {
     nested: {
       listitem: 'editor-nested-listitem'
     },
     ol: 'editor-list-ol',
     ul: 'editor-list-ul',
-    listitem: 'editor-listitem'
+    // listitem: 'editor-listitem'
   },
   image: 'editor-image',
   link: 'editor-link',

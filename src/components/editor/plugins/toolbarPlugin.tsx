@@ -31,7 +31,8 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { BiStrikethrough } from 'react-icons/bi'
-import { BsChevronDown, BsCode } from 'react-icons/bs'
+import { BsCheckLg, BsChevronDown, BsCode } from 'react-icons/bs'
+import { FiEdit3 } from 'react-icons/fi'
 import { GoLink } from 'react-icons/go'
 import { RxFontBold, RxFontItalic, RxUnderline } from 'react-icons/rx'
 
@@ -160,45 +161,81 @@ function FloatingLinkEditor({ editor }: { editor: LexicalEditor }) {
   }, [isEditMode])
 
   return (
-    <div ref={editorRef} className="link-editor">
+    // <div ref={editorRef} className="link-editor">
+    <div
+      ref={editorRef}
+      className={cn(
+        'absolute z-[100] an-shadow bg-white max-w-[400px] truncate py-2 pl-3 pr-2 rounded-md'
+      )}
+    >
       {isEditMode ? (
-        <input
-          ref={inputRef}
-          className="link-input"
-          value={linkUrl}
-          onChange={event => {
-            setLinkUrl(event.target.value)
-          }}
-          onKeyDown={event => {
-            if (event.key === 'Enter') {
-              event.preventDefault()
+        <div className="flex items-center justify-center gap-2">
+          <input
+            ref={inputRef}
+            className={cn(
+              // need to keep "link-input"
+              'link-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500',
+              'focus-visible:ring-opacity-50 bg-slate-100 focus-visible:rounded-sm',
+              'focus-visible:px-1 focus-visible:py-0.5'
+            )}
+            value={linkUrl}
+            onChange={event => {
+              setLinkUrl(event.target.value)
+            }}
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                event.preventDefault()
+                if (lastSelection !== null) {
+                  if (linkUrl !== '') {
+                    editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl)
+                  }
+                  setEditMode(false)
+                }
+              } else if (event.key === 'Escape') {
+                event.preventDefault()
+                setEditMode(false)
+              }
+            }}
+          />
+          <div
+            className="an-edt-toolbar-item"
+            role="button"
+            tabIndex={0}
+            onMouseDown={event => event.preventDefault()}
+            onClick={() => {
               if (lastSelection !== null) {
                 if (linkUrl !== '') {
                   editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl)
                 }
                 setEditMode(false)
               }
-            } else if (event.key === 'Escape') {
-              event.preventDefault()
-              setEditMode(false)
-            }
-          }}
-        />
+            }}
+          >
+            <BsCheckLg />
+          </div>
+        </div>
       ) : (
         <>
-          <div className="link-input">
-            <a href={linkUrl} target="_blank" rel="noopener noreferrer">
+          <div className="flex items-center justify-center gap-4">
+            <a
+              className="an-link block whitespace-nowrap"
+              href={linkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {linkUrl}
             </a>
             <div
-              className="link-edit"
+              className="an-edt-toolbar-item"
               role="button"
               tabIndex={0}
               onMouseDown={event => event.preventDefault()}
               onClick={() => {
                 setEditMode(true)
               }}
-            />
+            >
+              <FiEdit3 />
+            </div>
           </div>
         </>
       )}
@@ -393,7 +430,7 @@ function BlockOptionsDropdownList({
 
   return (
     <div
-      className={cn('absolute z-50 flex flex-col rounded-lg bg-white shadow-xl p-2')}
+      className={cn('absolute z-50 flex flex-col rounded-lg bg-white an-shadow p-2')}
       ref={dropDownRef}
     >
       {formatTextTypes.map(format => {

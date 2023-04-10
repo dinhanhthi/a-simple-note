@@ -44,7 +44,8 @@ export default function BlockModal(props: BlockModalProps) {
             >
               <Dialog.Panel
                 className={cn(
-                  'flex flex-col gap-0 w-full lg:max-w-[80vw] max-h-[80vh] transform rounded-lg bg-white p-4 pb-3 text-left',
+                  'flex flex-col gap-0 w-full lg:max-w-[80vw] max-h-[80vh] transform rounded-lg',
+                  'bg-white p-5 pb-3 text-left',
                   'align-middle shadow-xl transition-all text-slate-800'
                 )}
               >

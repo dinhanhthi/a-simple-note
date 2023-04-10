@@ -19,17 +19,20 @@ import ExampleTheme from './exampleTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin'
+import prepopulatedText from './sampleText'
 
 function Placeholder() {
   return (
-    <div className="absolute left-0 top-4 animate-pulse gap-2 truncate text-slate-500">
+    <div
+      className={cn('absolute left-0 animate-pulse gap-2 truncate text-slate-500 top-4 xl:top-5')}
+    >
       Take a note...
     </div>
   )
 }
 
 const editorConfig: any = {
-  // editorState: prepopulatedText,
+  editorState: prepopulatedText,
   theme: ExampleTheme,
   // Handling of errors during update
   onError(error: any) {
@@ -66,8 +69,7 @@ export default function Editor(props: EditorProps) {
             contentEditable={
               <ContentEditable
                 className={cn(
-                  'prose relative min-h-[200px] h-full overflow-auto py-4 leading-normal',
-                  'lg:prose-lg xl:prose-xl 2xl:prose-2xl',
+                  'an-prose relative min-h-[200px] h-full overflow-auto py-4 leading-normal',
                   'outline-none'
                 )}
               />
@@ -81,7 +83,7 @@ export default function Editor(props: EditorProps) {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
         </div>
-        <div className={cn('flex items-center justify-between pt-2')}>
+        <div className={cn('flex items-center justify-between pt-2.5')}>
           <ActionsPlugin />
           <div className="flex items-center justify-center gap-3">
             <button

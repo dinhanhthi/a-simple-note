@@ -51,7 +51,7 @@ export const formatTextTypes: {
 export function getBlockTypeIcon(type: string): JSX.Element {
   switch (type) {
     case 'paragraph':
-      return <BsTextParagraph className="icon" />
+      return <BsTextParagraph />
     case 'h1':
       return <span className="text-sm">H1</span>
     case 'h2':
@@ -59,13 +59,13 @@ export function getBlockTypeIcon(type: string): JSX.Element {
     case 'h3':
       return <span className="text-sm">H3</span>
     case 'ol':
-      return <MdFormatListBulleted className="icon" />
+      return <MdFormatListBulleted />
     case 'ul':
-      return <MdFormatListNumbered className="icon" />
+      return <MdFormatListNumbered />
     case 'quote':
-      return <BsBlockquoteLeft className="icon" />
+      return <BsBlockquoteLeft />
     case 'code':
-      return <BsCodeSlash className="icon" />
+      return <BsCodeSlash />
     default:
       return <></>
   }
