@@ -1,4 +1,5 @@
 import { BsBlockquoteLeft, BsCodeSlash, BsTextParagraph } from 'react-icons/bs'
+import { CiBoxList } from 'react-icons/ci'
 import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md'
 
 export const formatTextTypes: {
@@ -37,6 +38,11 @@ export const formatTextTypes: {
     icon: getBlockTypeIcon('ol')
   },
   {
+    type: 'check',
+    text: 'Check List',
+    icon: getBlockTypeIcon('check')
+  },
+  {
     type: 'quote',
     text: 'Quote',
     icon: getBlockTypeIcon('quote')
@@ -66,6 +72,8 @@ export function getBlockTypeIcon(type: string): JSX.Element {
       return <BsBlockquoteLeft />
     case 'code':
       return <BsCodeSlash />
+    case 'check':
+      return <CiBoxList />
     default:
       return <></>
   }

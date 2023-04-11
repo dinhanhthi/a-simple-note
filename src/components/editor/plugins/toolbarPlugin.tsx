@@ -8,6 +8,7 @@ import {
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
 import {
   $isListNode,
+  INSERT_CHECK_LIST_COMMAND,
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
   ListNode,
@@ -24,14 +25,22 @@ import {
   $getSelection,
   $isRangeSelection,
   FORMAT_TEXT_COMMAND,
+  INDENT_CONTENT_COMMAND,
   LexicalEditor,
+  OUTDENT_CONTENT_COMMAND,
   RangeSelection,
   SELECTION_CHANGE_COMMAND
 } from 'lexical'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { BiStrikethrough } from 'react-icons/bi'
-import { BsCheckLg, BsChevronDown, BsCode } from 'react-icons/bs'
+import {
+  BsCheckLg,
+  BsChevronDown,
+  BsCode,
+  BsTextIndentLeft,
+  BsTextIndentRight
+} from 'react-icons/bs'
 import { FiEdit3 } from 'react-icons/fi'
 import { GoLink } from 'react-icons/go'
 import { RxFontBold, RxFontItalic, RxUnderline } from 'react-icons/rx'
@@ -40,9 +49,20 @@ import { formatTextTypes, getBlockTypeIcon } from './toolbarHelpers'
 
 const LowPriority = 1
 
-const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'h3', 'ul', 'ol'])
+const supportedBlockTypes = new Set([
+  'paragraph',
+  'quote',
+  'code',
+  'h1',
+  'h2',
+  'h3',
+  'ul',
+  'ol',
+  'check'
+])
 
 const blockTypeToBlockName = {
+  check: 'Check List',
   code: 'Code Block',
   h1: 'Large Heading',
   h2: 'Medium Heading',
@@ -329,6 +349,8 @@ function BlockOptionsDropdownList({
         return formatBulletList
       case 'ol':
         return formatNumberedList
+      case 'check':
+        return formatCheckList
     }
   }
 
@@ -398,6 +420,16 @@ function BlockOptionsDropdownList({
       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND)
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND)
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatCheckList = () => {
+    /* ###Thi */ console.log('formatCheckList')
+    if (blockType !== 'check') {
+      editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined)
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
     }
     setShowBlockOptionsDropDown(false)
   }
@@ -547,6 +579,14 @@ export default function ToolbarPlugin() {
     }
   }, [editor, isLink])
 
+  const indentList = useCallback(() => {
+    editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined)
+  }, [editor])
+
+  const outdentList = useCallback(() => {
+    editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined)
+  }, [editor])
+
   return (
     <div className="flex flex-row items-center gap-1 py-1" ref={toolbarRef}>
       {supportedBlockTypes.has(blockType) && (
@@ -593,7 +633,7 @@ export default function ToolbarPlugin() {
             className={cn('an-edt-toolbar-item', { active: isBold })}
             aria-label="Format Bold"
           >
-            <RxFontBold className="format" />
+            <RxFontBold />
           </button>
           <button
             onClick={() => {
@@ -602,7 +642,7 @@ export default function ToolbarPlugin() {
             className={cn('an-edt-toolbar-item', { active: isItalic })}
             aria-label="Format Italics"
           >
-            <RxFontItalic className="format" />
+            <RxFontItalic />
           </button>
           <button
             onClick={() => {
@@ -611,7 +651,7 @@ export default function ToolbarPlugin() {
             className={cn('an-edt-toolbar-item', { active: isUnderline })}
             aria-label="Format Underline"
           >
-            <RxUnderline className="format" />
+            <RxUnderline />
           </button>
           <button
             onClick={() => {
@@ -620,7 +660,7 @@ export default function ToolbarPlugin() {
             className={cn('an-edt-toolbar-item', { active: isStrikethrough })}
             aria-label="Format Strikethrough"
           >
-            <BiStrikethrough className="format" />
+            <BiStrikethrough />
           </button>
           <button
             onClick={() => {
@@ -629,14 +669,28 @@ export default function ToolbarPlugin() {
             className={cn('an-edt-toolbar-item', { active: isCode })}
             aria-label="Insert Code"
           >
-            <BsCode className="format" />
+            <BsCode />
           </button>
           <button
             onClick={insertLink}
             className={cn('an-edt-toolbar-item', { active: isLink })}
             aria-label="Insert Link"
           >
-            <GoLink className="format" />
+            <GoLink />
+          </button>
+          <button
+            onClick={indentList}
+            className={cn('an-edt-toolbar-item')}
+            aria-label="Indent List"
+          >
+            <BsTextIndentLeft />
+          </button>
+          <button
+            onClick={outdentList}
+            className={cn('an-edt-toolbar-item')}
+            aria-label="Outden List"
+          >
+            <BsTextIndentRight />
           </button>
           {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
         </>

@@ -1,4 +1,4 @@
-const exampleTheme = {
+const anEditorTheme = {
   ltr: 'ltr',
   rtl: 'rtl',
   placeholder: 'editor-placeholder',
@@ -13,11 +13,8 @@ const exampleTheme = {
   // },
   list: {
     nested: {
-      listitem: 'editor-nested-listitem'
-    },
-    ol: 'editor-list-ol',
-    ul: 'editor-list-ul',
-    // listitem: 'editor-listitem'
+      listitem: 'an-nested-listitem'
+    }
   },
   image: 'editor-image',
   link: 'editor-link',
@@ -66,4 +63,4 @@ const exampleTheme = {
   }
 }
 
-export default exampleTheme
+export default anEditorTheme

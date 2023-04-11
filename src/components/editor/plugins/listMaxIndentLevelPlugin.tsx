@@ -60,7 +60,7 @@ export default function ListMaxIndentLevelPlugin(
   useEffect(() => {
     return editor.registerCommand(
       INDENT_CONTENT_COMMAND,
-      () => !isIndentPermitted(maxDepth ?? 7),
+      () => !isIndentPermitted(maxDepth ?? 3),
       COMMAND_PRIORITY_HIGH
     )
   }, [editor, maxDepth])

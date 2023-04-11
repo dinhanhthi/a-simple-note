@@ -15,9 +15,10 @@ import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import cn from 'classnames'
 
-import ExampleTheme from './exampleTheme'
+import ExampleTheme from './customTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
+import FixIndentOutdentListPlugin from './plugins/fixIndentOutdentList'
 import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin'
 import prepopulatedText from './sampleText'
@@ -84,6 +85,7 @@ export default function Editor(props: EditorProps) {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
           <ListMaxIndentLevelPlugin maxDepth={3} />
+          <FixIndentOutdentListPlugin />
         </div>
         <div className={cn('flex items-center justify-between pt-2.5')}>
           <ActionsPlugin />

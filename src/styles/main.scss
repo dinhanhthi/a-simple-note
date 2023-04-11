@@ -122,3 +122,10 @@
   @apply prose-ol:pl-6;
   @apply prose-a:an-link;
 }
+
+.an-nested-listitem {
+  @apply list-none;
+  & > li {
+    @apply list-disc;
+  }
+}
