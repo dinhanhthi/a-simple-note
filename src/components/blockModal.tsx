@@ -1,9 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
-import parse from 'html-react-parser'
 import { Fragment } from 'react'
 
 import { Note } from '../interface'
+import Editor from './editor/editor'
 
 type BlockModalProps = {
   isOpen: boolean
@@ -14,6 +14,10 @@ type BlockModalProps = {
 
 export default function BlockModal(props: BlockModalProps) {
   const note = props.note
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onKeyDown = (e: any) =>
+    e.ctrlKey ||
+    (e.metaKey && !['c', 'v', 'ArrowLeft', 'ArrowRight'].includes(e.key) && e.preventDefault())
   return (
     <Transition appear show={props.isOpen} as={Fragment}>
       {/* 👇 Give onClose an empty function to disable click outside to hide the dialog */}
@@ -44,36 +48,28 @@ export default function BlockModal(props: BlockModalProps) {
             >
               <Dialog.Panel
                 className={cn(
-                  'flex flex-col gap-0 w-full max-w-md transform rounded-lg bg-white p-4 pb-3 text-left',
+                  'flex flex-col gap-0 w-full lg:max-w-[80vw] max-h-[80vh] transform rounded-lg',
+                  'bg-white p-5 pb-3 text-left',
                   'align-middle shadow-xl transition-all text-slate-800'
                 )}
               >
-                <Dialog.Title as="h2" className={cn('pb-2 text-lg font-medium leading-6 border-b')}>
-                  {note.title}
-                </Dialog.Title>
-                <div className="prose py-2">{parse(note.content)}</div>
-                <div className={cn('flex items-center justify-end gap-3')}>
-                  <button
-                    type="button"
+                <div className="border-b pb-2">
+                  <Dialog.Title
+                    contentEditable={true}
+                    suppressContentEditableWarning={true}
+                    onKeyDown={onKeyDown}
+                    role="textbox"
+                    as="h2"
                     className={cn(
-                      'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
-                      'focus:outline-none focus:ring-0 focus:ring-offset-0'
+                      'text-xl font-medium leading-6 focus-within:ring-0',
+                      'focus-within:outline-none'
                     )}
-                    onClick={saveNote}
                   >
-                    SAVE
-                  </button>
-                  <button
-                    type="button"
-                    className={cn(
-                      'bg-white z-10 p-1 text-sm font-semibold opacity-70 hover:opacity-100',
-                      'focus:outline-none focus:ring-0 focus:ring-offset-0'
-                    )}
-                    onClick={props.closeModal}
-                  >
-                    CLOSE
-                  </button>
+                    {note.title}
+                  </Dialog.Title>
                 </div>
+                {/* <div className="prose py-2">{parse(note.content)}</div> */}
+                <Editor saveNote={saveNote} closeModal={props.closeModal} />
               </Dialog.Panel>
             </Transition.Child>
           </div>

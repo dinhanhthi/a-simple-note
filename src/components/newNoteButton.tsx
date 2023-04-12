@@ -14,7 +14,7 @@ export default function NewNoteButton(props: NewNoteButtonProps) {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const note = {
-    title: 'test',
+    title: 'New Note',
     content: 'test',
     createdAt: new Date(),
     updatedAt: new Date()

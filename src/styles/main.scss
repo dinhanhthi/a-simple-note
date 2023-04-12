@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .an-link {
+    @apply text-blue-500 hover:text-blue-600 no-underline;
+  }
+
+  .an-shadow {
+    box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+  }
+}
+
 .an-text-rainbow {
   background: linear-gradient(140deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
   background-clip: text;
@@ -85,5 +95,37 @@
     &::-webkit-scrollbar-thumb {
       border-radius: 7px;
     }
+  }
+}
+
+// Editor
+.an-edt-toolbar-item {
+  @apply flex cursor-pointer items-center rounded-lg bg-none p-1.5 opacity-80;
+  &.active,
+  &:hover:not(:disabled) {
+    @apply bg-gray-100 opacity-100;
+  }
+  &:disabled {
+    @apply cursor-not-allowed;
+  }
+}
+
+.an-prose {
+  @apply prose prose-sm xl:prose max-w-full;
+  @apply prose-p:mb-0;
+  @apply prose-headings:font-semibold;
+  @apply prose-h1:mb-4 prose-h1:text-2xl;
+  @apply prose-h2:mt-0 prose-h2:mb-4 prose-h2:text-xl;
+  @apply prose-h3:mt-0 prose-h3:mb-4 prose-h3:text-lg;
+  @apply prose-li:pl-0;
+  @apply prose-ul:pl-6 prose-ul:mt-0 prose-ul:mb-0;
+  @apply prose-ol:pl-6;
+  @apply prose-a:an-link;
+}
+
+.an-nested-listitem {
+  @apply list-none;
+  & > li {
+    @apply list-disc;
   }
 }
