@@ -4,6 +4,7 @@ import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { ListItemNode, ListNode } from '@lexical/list'
 import { TRANSFORMERS } from '@lexical/markdown'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
+import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
@@ -20,7 +21,7 @@ import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
 import FixIndentOutdentListPlugin from './plugins/fixIndentOutdentList'
 import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
-import ToolbarPlugin from './plugins/toolbarPlugin'
+import ToolbarPlugin from './plugins/toolbarPlugin/toolbarPlugin'
 import prepopulatedText from './sampleText'
 
 function Placeholder() {
@@ -40,7 +41,6 @@ const editorConfig: any = {
   onError(error: any) {
     throw error
   },
-  // Any custom nodes go here
   nodes: [
     HeadingNode,
     ListNode,
@@ -82,6 +82,7 @@ export default function Editor(props: EditorProps) {
           <AutoFocusPlugin />
           <ListPlugin />
           <LinkPlugin />
+          <CheckListPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
           <ListMaxIndentLevelPlugin maxDepth={3} />

@@ -1,6 +1,19 @@
-import { BsBlockquoteLeft, BsCodeSlash, BsTextParagraph } from 'react-icons/bs'
-import { CiBoxList } from 'react-icons/ci'
-import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md'
+import { BsCodeSlash, BsTextParagraph } from 'react-icons/bs'
+import { CgCheckR } from 'react-icons/cg'
+import { TbListDetails, TbListNumbers } from 'react-icons/tb'
+import { TbBlockquote } from 'react-icons/tb'
+
+export const blockTypeToBlockName = {
+  check: 'Check List',
+  code: 'Code Block',
+  h1: 'Large Heading (H1)',
+  h2: 'Medium Heading (H2)',
+  h3: 'Small Heading (H3)',
+  ol: 'Ordered List',
+  paragraph: 'Normal',
+  quote: 'Quote',
+  ul: 'Unordered List'
+}
 
 export const formatTextTypes: {
   type: string
@@ -9,47 +22,47 @@ export const formatTextTypes: {
 }[] = [
   {
     type: 'paragraph',
-    text: 'Normal',
+    text: blockTypeToBlockName['paragraph'],
     icon: getBlockTypeIcon('paragraph')
   },
   {
     type: 'h1',
-    text: 'Large Heading (H1)',
+    text: blockTypeToBlockName['h1'],
     icon: getBlockTypeIcon('h1')
   },
   {
     type: 'h2',
-    text: 'Medium Heading (H2)',
+    text: blockTypeToBlockName['h2'],
     icon: getBlockTypeIcon('h2')
   },
   {
     type: 'h3',
-    text: 'Small Heading (H3)',
+    text: blockTypeToBlockName['h3'],
     icon: getBlockTypeIcon('h3')
   },
   {
     type: 'ul',
-    text: 'Unordered List',
+    text: blockTypeToBlockName['ul'],
     icon: getBlockTypeIcon('ul')
   },
   {
     type: 'ol',
-    text: 'Ordered List',
+    text: blockTypeToBlockName['ol'],
     icon: getBlockTypeIcon('ol')
   },
   {
     type: 'check',
-    text: 'Check List',
+    text: blockTypeToBlockName['check'],
     icon: getBlockTypeIcon('check')
   },
   {
     type: 'quote',
-    text: 'Quote',
+    text: blockTypeToBlockName['quote'],
     icon: getBlockTypeIcon('quote')
   },
   {
     type: 'code',
-    text: 'Code',
+    text: blockTypeToBlockName['code'],
     icon: getBlockTypeIcon('code')
   }
 ]
@@ -65,15 +78,15 @@ export function getBlockTypeIcon(type: string): JSX.Element {
     case 'h3':
       return <span className="text-sm">H3</span>
     case 'ol':
-      return <MdFormatListBulleted />
+      return <TbListNumbers />
     case 'ul':
-      return <MdFormatListNumbered />
+      return <TbListDetails />
     case 'quote':
-      return <BsBlockquoteLeft />
+      return <TbBlockquote />
     case 'code':
       return <BsCodeSlash />
     case 'check':
-      return <CiBoxList />
+      return <CgCheckR />
     default:
       return <></>
   }

@@ -1,26 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  $createCodeNode,
-  $isCodeNode,
-  getCodeLanguages,
-  getDefaultCodeLanguage
-} from '@lexical/code'
+import { $isCodeNode, getCodeLanguages, getDefaultCodeLanguage } from '@lexical/code'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
-import {
-  $isListNode,
-  INSERT_CHECK_LIST_COMMAND,
-  INSERT_ORDERED_LIST_COMMAND,
-  INSERT_UNORDERED_LIST_COMMAND,
-  ListNode,
-  REMOVE_LIST_COMMAND
-} from '@lexical/list'
+import { $isListNode, ListNode } from '@lexical/list'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text'
-import { $isAtNodeEnd, $wrapNodes } from '@lexical/selection'
+import { $isHeadingNode } from '@lexical/rich-text'
+import { $isAtNodeEnd } from '@lexical/selection'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import cn from 'classnames'
 import {
-  $createParagraphNode,
   $getNodeByKey,
   $getSelection,
   $isRangeSelection,
@@ -45,7 +32,8 @@ import { FiEdit3 } from 'react-icons/fi'
 import { GoLink } from 'react-icons/go'
 import { RxFontBold, RxFontItalic, RxUnderline } from 'react-icons/rx'
 
-import { formatTextTypes, getBlockTypeIcon } from './toolbarHelpers'
+import BlockFormatDropDown from './blockFormatDropdown'
+import { blockTypeToBlockName, getBlockTypeIcon } from './toolbarHelpers'
 
 const LowPriority = 1
 
@@ -60,18 +48,6 @@ const supportedBlockTypes = new Set([
   'ol',
   'check'
 ])
-
-const blockTypeToBlockName = {
-  check: 'Check List',
-  code: 'Code Block',
-  h1: 'Large Heading',
-  h2: 'Medium Heading',
-  h3: 'Small Heading',
-  ol: 'Numbered List',
-  paragraph: 'Normal',
-  quote: 'Quote',
-  ul: 'Bulleted List'
-}
 
 function positionEditorElement(editor: HTMLDivElement, rect?: DOMRect) {
   if (!rect) {
@@ -292,204 +268,12 @@ function getSelectedNode(selection: RangeSelection) {
   }
 }
 
-function BlockOptionsDropdownList({
-  editor,
-  blockType,
-  toolbarRef,
-  setShowBlockOptionsDropDown
-}: any) {
-  const dropDownRef = useRef<any>(null)
-
-  useEffect(() => {
-    const toolbar = toolbarRef.current
-    const dropDown = dropDownRef.current
-
-    if (toolbar !== null && dropDown !== null) {
-      const { top, left } = toolbar.getBoundingClientRect()
-      dropDown.style.top = `${top + 40}px`
-      dropDown.style.left = `${left}px`
-    }
-  }, [dropDownRef, toolbarRef])
-
-  useEffect(() => {
-    const dropDown = dropDownRef.current
-    const toolbar = toolbarRef.current
-
-    if (dropDown !== null && toolbar !== null) {
-      const handle = (event: any) => {
-        const target = event.target
-
-        if (!dropDown.contains(target) && !toolbar.contains(target)) {
-          setShowBlockOptionsDropDown(false)
-        }
-      }
-      document.addEventListener('click', handle)
-
-      return () => {
-        document.removeEventListener('click', handle)
-      }
-    }
-  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef])
-
-  function formatActionMethod(type: string) {
-    switch (type) {
-      case 'paragraph':
-        return formatParagraph
-      case 'h1':
-        return formatLargeHeading
-      case 'h2':
-        return formatMediumHeading
-      case 'h3':
-        return formatSmallHeading
-      case 'quote':
-        return formatQuote
-      case 'code':
-        return formatCode
-      case 'ul':
-        return formatBulletList
-      case 'ol':
-        return formatNumberedList
-      case 'check':
-        return formatCheckList
-    }
-  }
-
-  const formatParagraph = () => {
-    if (blockType !== 'paragraph') {
-      editor.update(() => {
-        const selection = $getSelection()
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createParagraphNode())
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatLargeHeading = () => {
-    if (blockType !== 'h1') {
-      editor.update(() => {
-        const selection = $getSelection()
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h1'))
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatMediumHeading = () => {
-    if (blockType !== 'h2') {
-      editor.update(() => {
-        const selection = $getSelection()
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h2'))
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatSmallHeading = () => {
-    if (blockType !== 'h3') {
-      editor.update(() => {
-        const selection = $getSelection()
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h3'))
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatBulletList = () => {
-    if (blockType !== 'ul') {
-      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND)
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND)
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatNumberedList = () => {
-    if (blockType !== 'ol') {
-      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND)
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND)
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatCheckList = () => {
-    /* ###Thi */ console.log('formatCheckList')
-    if (blockType !== 'check') {
-      editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined)
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatQuote = () => {
-    if (blockType !== 'quote') {
-      editor.update(() => {
-        const selection = $getSelection()
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createQuoteNode())
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  const formatCode = () => {
-    if (blockType !== 'code') {
-      editor.update(() => {
-        const selection = $getSelection()
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createCodeNode())
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
-
-  return (
-    <div
-      className={cn('absolute z-50 flex flex-col rounded-lg bg-white an-shadow p-2')}
-      ref={dropDownRef}
-    >
-      {formatTextTypes.map(format => {
-        return (
-          <button
-            className={cn(
-              'flex items-center gap-2 opacity-80 hover:opacity-100 hover:bg-slate-100 px-2 py-1.5 rounded-md'
-            )}
-            key={format.type}
-            onClick={formatActionMethod(format.type)}
-          >
-            {format.icon}
-            <span className="text-sm">{format.text}</span>
-            {blockType === format.type && <span className="active" />}
-          </button>
-        )
-      })}
-    </div>
-  )
-}
-
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef(null)
   const [blockType, setBlockType] = useState('paragraph')
   const [selectedElementKey, setSelectedElementKey] = useState<any>(null)
-  const [showBlockOptionsDropDown, setShowBlockOptionsDropDown] = useState(false)
+  const [showFormatDropdown, setShowFormatDropDown] = useState(false)
   const [codeLanguage, setCodeLanguage] = useState('')
   const [isLink, setIsLink] = useState(false)
   const [isBold, setIsBold] = useState(false)
@@ -595,20 +379,20 @@ export default function ToolbarPlugin() {
             className={cn(
               'an-edt-toolbar-item justify-between gap-3 bg-none !py-1 !rounded-md min-w-[170px]'
             )}
-            onClick={() => setShowBlockOptionsDropDown(!showBlockOptionsDropDown)}
+            onClick={() => setShowFormatDropDown(!showFormatDropdown)}
             aria-label="Formatting Options"
           >
             {getBlockTypeIcon(blockType)}
             <span className="text-sm">{(blockTypeToBlockName as any)[blockType]}</span>
             <BsChevronDown />
           </button>
-          {showBlockOptionsDropDown &&
+          {showFormatDropdown &&
             createPortal(
-              <BlockOptionsDropdownList
+              <BlockFormatDropDown
                 editor={editor}
                 blockType={blockType}
                 toolbarRef={toolbarRef}
-                setShowBlockOptionsDropDown={setShowBlockOptionsDropDown}
+                setShowFormatDropDown={setShowFormatDropDown}
               />,
               document.body
             )}
