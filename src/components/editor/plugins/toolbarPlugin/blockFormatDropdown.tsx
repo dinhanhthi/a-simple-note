@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { $createCodeNode } from '@lexical/code'
 import {
   INSERT_CHECK_LIST_COMMAND,

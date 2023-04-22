@@ -14,7 +14,6 @@ type BlockModalProps = {
 
 export default function BlockModal(props: BlockModalProps) {
   const note = props.note
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onKeyDown = (e: any) =>
     e.ctrlKey ||
     (e.metaKey && !['c', 'v', 'ArrowLeft', 'ArrowRight'].includes(e.key) && e.preventDefault())

@@ -13,7 +13,7 @@ module.exports = {
     'plugin:@next/next/recommended',
     'plugin:tailwindcss/recommended',
     'next',
-    'prettier', // make sure it's the last one,
+    'prettier' // make sure it's the last one,
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
@@ -32,6 +32,7 @@ module.exports = {
   "rules" always win over "extends"
   */
   rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
     'import/no-unresolved': 'off',
     'jsx-a11y/accessible-emoji': 'off',
     'jsx-a11y/iframe-has-title': 'off',
@@ -49,8 +50,8 @@ module.exports = {
       {
         components: ['Link'],
         specialLink: ['hrefLeft', 'hrefRight'],
-        aspects: ['invalidHref', 'preferButton'], // Because it takes a lot of time!!!
-      },
+        aspects: ['invalidHref', 'preferButton'] // Because it takes a lot of time!!!
+      }
     ],
     'tailwindcss/no-custom-classname': 'off',
     'tailwindcss/enforces-negative-arbitrary-values': 'off',
@@ -62,9 +63,9 @@ module.exports = {
         ignoreComments: true,
         ignoreUrls: true,
         ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-      },
-    ],
+        ignoreTemplateLiterals: true
+      }
+    ]
   },
-  ignorePatterns: ['next-env.d.ts', 'graphql/**/*.ts'],
+  ignorePatterns: ['next-env.d.ts', 'graphql/**/*.ts']
 }
