@@ -81,8 +81,8 @@ export default function Editor(props: EditorProps) {
           />
           <AutoFocusPlugin />
           <ListPlugin />
-          <LinkPlugin />
           <CheckListPlugin />
+          <LinkPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <CodeHighlightPlugin />
           <ListMaxIndentLevelPlugin maxDepth={3} />

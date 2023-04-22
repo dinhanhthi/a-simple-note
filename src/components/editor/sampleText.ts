@@ -40,6 +40,12 @@ export default function prepopulatedText() {
     )
   )
   root.append(list)
+
+  const check = $createListNode('check')
+  check.append($createListItemNode().append($createTextNode('This is a checked list item.')))
+
+  root.append(check)
+
   const paragraph3 = $createParagraphNode()
   paragraph3.append(
     $createTextNode('Press the bottom right button to switch to Markdown & vice versa.')

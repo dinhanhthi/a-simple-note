@@ -12,6 +12,9 @@ const anEditorTheme = {
   //   h5: 'editor-heading-h5'
   // },
   list: {
+    // listitem: 'PlaygroundEditorTheme__listItem',
+    listitemChecked: 'an-checked-listitem',
+    listitemUnchecked: 'an-unchecked-listitem',
     nested: {
       listitem: 'an-nested-listitem'
     }

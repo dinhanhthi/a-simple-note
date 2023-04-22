@@ -271,7 +271,7 @@ function getSelectedNode(selection: RangeSelection) {
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef(null)
-  const [blockType, setBlockType] = useState('paragraph')
+  const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph')
   const [selectedElementKey, setSelectedElementKey] = useState<any>(null)
   const [showFormatDropdown, setShowFormatDropDown] = useState(false)
   const [codeLanguage, setCodeLanguage] = useState('')
@@ -293,12 +293,14 @@ export default function ToolbarPlugin() {
       if (elementDOM !== null) {
         setSelectedElementKey(elementKey)
         if ($isListNode(element)) {
-          const parentList = $getNearestNodeOfType(anchorNode, ListNode)
-          const type = parentList ? parentList.getTag() : element.getTag()
-          setBlockType(type)
+          const parentList = $getNearestNodeOfType<ListNode>(anchorNode, ListNode)
+          const type = parentList ? parentList.getListType() : element.getListType()
+          // Because ListType contains "bullet" and "number", not "ul" and "ol"
+          const convertedType = type === 'bullet' ? 'ul' : type === 'number' ? 'ol' : type
+          setBlockType(convertedType as keyof typeof blockTypeToBlockName)
         } else {
           const type = $isHeadingNode(element) ? element.getTag() : element.getType()
-          setBlockType(type)
+          setBlockType(type as keyof typeof blockTypeToBlockName)
           if ($isCodeNode(element)) {
             setCodeLanguage(element.getLanguage() || getDefaultCodeLanguage())
           }

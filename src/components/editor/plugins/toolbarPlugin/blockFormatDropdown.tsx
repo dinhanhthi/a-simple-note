@@ -54,6 +54,7 @@ export default function BlockFormatDropDown({
   }, [dropDownRef, setShowFormatDropDown, toolbarRef])
 
   function formatActionMethod(type: string) {
+    /* ###Thi */ console.log('type clicked: ', type)
     switch (type) {
       case 'paragraph':
         return formatParagraph
@@ -68,9 +69,9 @@ export default function BlockFormatDropDown({
       case 'code':
         return formatCode
       case 'ul':
-        return formatBulletList
+        return formatUnorderedList
       case 'ol':
-        return formatNumberedList
+        return formatOrderedList
       case 'check':
         return formatCheckList
     }
@@ -128,7 +129,7 @@ export default function BlockFormatDropDown({
     setShowFormatDropDown(false)
   }
 
-  const formatBulletList = () => {
+  const formatUnorderedList = () => {
     if (blockType !== 'ul') {
       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND)
     } else {
@@ -137,7 +138,7 @@ export default function BlockFormatDropDown({
     setShowFormatDropDown(false)
   }
 
-  const formatNumberedList = () => {
+  const formatOrderedList = () => {
     if (blockType !== 'ol') {
       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND)
     } else {
@@ -147,6 +148,7 @@ export default function BlockFormatDropDown({
   }
 
   const formatCheckList = () => {
+    /* ###Thi */ console.log('formatCheckList called with blockType: ', blockType)
     if (blockType !== 'check') {
       editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined)
     } else {
