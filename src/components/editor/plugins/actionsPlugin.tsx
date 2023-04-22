@@ -6,7 +6,7 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import { BsMarkdown } from 'react-icons/bs'
 
-import { PLAYGROUND_TRANSFORMERS } from './markdownTransformer'
+import { TRANSFORMERS } from './markdown/markdownTransformers'
 
 export default function ActionsPlugin(): JSX.Element {
   const [editor] = useLexicalComposerContext()
@@ -16,9 +16,9 @@ export default function ActionsPlugin(): JSX.Element {
       const root = $getRoot()
       const firstChild = root.getFirstChild()
       if ($isCodeNode(firstChild) && firstChild.getLanguage() === 'markdown') {
-        $convertFromMarkdownString(firstChild.getTextContent(), PLAYGROUND_TRANSFORMERS)
+        $convertFromMarkdownString(firstChild.getTextContent(), TRANSFORMERS)
       } else {
-        const markdown = $convertToMarkdownString(PLAYGROUND_TRANSFORMERS)
+        const markdown = $convertToMarkdownString(TRANSFORMERS)
         root.clear().append($createCodeNode('markdown').append($createTextNode(markdown)))
       }
       root.selectEnd()

@@ -2,7 +2,6 @@
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { ListItemNode, ListNode } from '@lexical/list'
-import { TRANSFORMERS } from '@lexical/markdown'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
@@ -10,7 +9,6 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
@@ -21,6 +19,7 @@ import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
 import FixIndentOutdentListPlugin from './plugins/fixIndentOutdentList'
 import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
+import MarkdownShortcutPlugin from './plugins/markdown/markdownShortcutPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin/toolbarPlugin'
 import prepopulatedText from './sampleText'
 
@@ -83,7 +82,7 @@ export default function Editor(props: EditorProps) {
           <ListPlugin />
           <CheckListPlugin />
           <LinkPlugin />
-          <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          <MarkdownShortcutPlugin />
           <CodeHighlightPlugin />
           <ListMaxIndentLevelPlugin maxDepth={3} />
           <FixIndentOutdentListPlugin />
