@@ -204,7 +204,7 @@ import {
 //   return match[1].split('|').map(text => createTableCell(text))
 // }
 
-export const TRANSFORMERS: Array<Transformer> = [
+export const AN_MD_TRANSFORMERS: Array<Transformer> = [
   // TABLE,
   // HR,
   CHECK_LIST,

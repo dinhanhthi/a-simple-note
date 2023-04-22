@@ -9,8 +9,8 @@
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
 import * as React from 'react'
 
-import { TRANSFORMERS } from './markdownTransformers'
+import { AN_MD_TRANSFORMERS } from './markdownTransformers'
 
 export default function MarkdownPlugin(): JSX.Element {
-  return <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+  return <MarkdownShortcutPlugin transformers={AN_MD_TRANSFORMERS} />
 }
