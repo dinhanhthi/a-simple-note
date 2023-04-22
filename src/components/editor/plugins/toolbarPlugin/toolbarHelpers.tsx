@@ -68,7 +68,6 @@ export const formatTextTypes: {
 ]
 
 export function getBlockTypeIcon(type: string): JSX.Element {
-  /* ###Thi */ console.log('getBlockTypeIcon: ', type, '')
   switch (type) {
     case 'paragraph':
       return <BsTextParagraph />

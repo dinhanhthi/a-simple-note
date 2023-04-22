@@ -54,7 +54,6 @@ export default function BlockFormatDropDown({
   }, [dropDownRef, setShowFormatDropDown, toolbarRef])
 
   function formatActionMethod(type: string) {
-    /* ###Thi */ console.log('type clicked: ', type)
     switch (type) {
       case 'paragraph':
         return formatParagraph
@@ -148,7 +147,6 @@ export default function BlockFormatDropDown({
   }
 
   const formatCheckList = () => {
-    /* ###Thi */ console.log('formatCheckList called with blockType: ', blockType)
     if (blockType !== 'check') {
       editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined)
     } else {
