@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+// @tippyjs/react
+@import 'tippy.js/dist/tippy.css';
+
+// We put all custom classes inside the base layer to able to use them in other prefixes.
 @layer base {
   .an-link {
     @apply text-blue-500 no-underline hover:text-blue-600;
@@ -11,166 +15,208 @@
     box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px,
       rgba(15, 15, 15, 0.2) 0px 9px 24px;
   }
-}
 
-.an-text-rainbow {
-  background: linear-gradient(140deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+  .an-text-rainbow {
+    background: linear-gradient(140deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-.an-shadow-soft-xl {
-  --an-shadow-color: rgba(0, 0, 0, 0.05);
-  --tw-shadow: 0px 0px 10px 0px var(--an-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-    var(--tw-shadow);
-}
+  .an-shadow-soft-xl {
+    --an-shadow-color: rgba(0, 0, 0, 0.05);
+    --tw-shadow: 0px 0px 10px 0px var(--an-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow);
+  }
 
-.an-bg-clip-border {
-  background-clip: border-box;
-}
+  .an-bg-clip-border {
+    background-clip: border-box;
+  }
 
-.an-block {
-  --border-size: 1px;
-  --border-angle: 0turn;
-  --an-box-transparent: 100%;
-  background-image: conic-gradient(from var(--border-angle), #fff, #fff, #fff),
-    conic-gradient(
-      from var(--border-angle),
-      transparent var(--an-box-transparent),
-      #d2a8ff,
-      #ff7b72
-    );
-  background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),
-    cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  .an-block {
+    --border-size: 1px;
+    --border-angle: 0turn;
+    --an-box-transparent: 100%;
+    background-image: conic-gradient(from var(--border-angle), #fff, #fff, #fff),
+      conic-gradient(
+        from var(--border-angle),
+        transparent var(--an-box-transparent),
+        #d2a8ff,
+        #ff7b72
+      );
+    background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),
+      cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 
-  animation: bg-spin 2s linear infinite;
-  @keyframes bg-spin {
-    to {
-      --border-angle: 1turn;
+    animation: bg-spin 2s linear infinite;
+    @keyframes bg-spin {
+      to {
+        --border-angle: 1turn;
+      }
     }
-  }
 
-  &:hover {
-    --an-box-transparent: 20%;
-  }
-}
-
-@property --border-angle {
-  syntax: '<angle>';
-  inherits: true;
-  initial-value: 0turn;
-}
-
-.an-hide-wscb {
-  &::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    display: none;
-  }
-}
-
-.an-scrollbar {
-  &::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
     &:hover {
-      background: #bbb;
+      --an-box-transparent: 20%;
     }
   }
-  &::-webkit-scrollbar-track {
-    background: transparent;
+
+  @property --border-angle {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0turn;
   }
 
-  &.scrollbar-small {
+  .an-hide-wscb {
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      display: none;
+    }
+  }
+
+  .an-scrollbar {
     &::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
+      width: 10px;
+      height: 10px;
     }
     &::-webkit-scrollbar-thumb {
-      border-radius: 7px;
+      background: #ccc;
+      border-radius: 10px;
+      &:hover {
+        background: #bbb;
+      }
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &.scrollbar-small {
+      &::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 7px;
+      }
     }
   }
-}
 
-// Editor
-.an-edt-toolbar-item {
-  @apply flex cursor-pointer items-center rounded-lg bg-none p-1.5 opacity-80;
-  &.active,
-  &:hover:not(:disabled) {
-    @apply bg-gray-100 opacity-100;
-  }
-  &:disabled {
-    @apply cursor-not-allowed;
-  }
-}
-
-.an-prose {
-  @apply prose prose-sm max-w-full xl:prose;
-  @apply prose-p:mb-0;
-  @apply prose-headings:font-semibold;
-  @apply prose-h1:mb-4 prose-h1:text-2xl;
-  @apply prose-h2:mb-4 prose-h2:mt-0 prose-h2:text-xl;
-  @apply prose-h3:mb-4 prose-h3:mt-0 prose-h3:text-lg;
-  @apply prose-li:pl-0;
-  @apply prose-ul:mb-0 prose-ul:mt-0 prose-ul:pl-7;
-  @apply prose-ol:pl-6;
-  @apply prose-a:an-link;
-}
-
-.an-nested-listitem {
-  @apply list-none;
-  & > li {
-    @apply list-disc;
-  }
-}
-
-.an-unchecked-listitem,
-.an-checked-listitem {
-  &:not(.an-nested-listitem) {
-    @apply -ml-6 flex list-none items-center focus-visible:outline-none;
-    &:before {
-      content: '';
-      @apply transition-all duration-200 ease-in-out;
-      @apply mr-1.5 h-[1.125rem] w-[1.125rem] cursor-pointer rounded border;
+  // Editor
+  .an-edt-toolbar-item {
+    @apply flex cursor-pointer items-center rounded-lg bg-none p-1.5 opacity-80;
+    &.active,
+    &:hover:not(:disabled) {
+      @apply bg-gray-100 opacity-100;
+    }
+    &:disabled {
+      @apply cursor-not-allowed;
     }
   }
-}
 
-.an-unchecked-listitem {
-  &:not(.an-nested-listitem) {
-    &:before {
-      @apply border-gray-400;
+  // Gap between all components
+  .an-gap {
+    @apply my-2.5;
+  }
+
+  .an-p {
+    @apply an-gap;
+  }
+
+  .an-gap-h {
+    @apply mb-4;
+  }
+
+  .an-h1 {
+    @apply an-gap-h text-2xl;
+  }
+
+  .an-h2 {
+    @apply an-gap-h mt-0 text-xl;
+  }
+
+  .an-h3 {
+    @apply an-gap-h mt-0 text-lg;
+  }
+
+  .an-ul {
+    @apply my-0 pl-6;
+  }
+
+  .an-ol {
+    @apply pl-6;
+  }
+
+  .an-li {
+    @apply an-gap pl-0;
+  }
+
+  .an-blockquote {
+    @apply mx-0 an-gap font-normal;
+  }
+
+  .an-prose {
+    @apply prose prose-sm max-w-full xl:prose;
+    @apply prose-p:an-p;
+    @apply prose-headings:font-semibold;
+    @apply prose-h1:an-h1;
+    @apply prose-h2:an-h2;
+    @apply prose-h3:an-h3;
+    @apply prose-li:an-li;
+    @apply prose-ul:an-ul;
+    @apply prose-ol:an-ol;
+    @apply prose-a:an-link;
+    @apply prose-blockquote:an-blockquote;
+  }
+
+  .an-nested-listitem {
+    @apply list-none;
+    & > li {
+      @apply list-disc;
     }
   }
-}
 
-.an-checked-listitem {
-  &:not(.an-nested-listitem) {
-    @apply relative;
-    &:before {
-      @apply border-sky-600 bg-sky-600;
+  .an-unchecked-listitem,
+  .an-checked-listitem {
+    &:not(.an-nested-listitem) {
+      @apply -ml-6 flex list-none items-center focus-visible:outline-none;
+      &:before {
+        content: '';
+        @apply transition-all duration-200 ease-in-out;
+        @apply mr-1.5 h-[1.125rem] w-[1.125rem] cursor-pointer rounded border;
+      }
     }
-    &:after {
-      content: '';
-      cursor: pointer;
-      border-color: #fff;
-      border-style: solid;
-      position: absolute;
-      display: block;
-      top: 7px;
-      width: 6px;
-      left: 6px;
-      right: 7px;
-      height: 10px;
-      transform: rotate(45deg);
-      border-width: 0 2px 2px 0;
+  }
+
+  .an-unchecked-listitem {
+    &:not(.an-nested-listitem) {
+      &:before {
+        @apply border-gray-400;
+      }
+    }
+  }
+
+  .an-checked-listitem {
+    &:not(.an-nested-listitem) {
+      @apply relative;
+      &:before {
+        @apply border-sky-600 bg-sky-600;
+      }
+      &:after {
+        content: '';
+        cursor: pointer;
+        border-color: #fff;
+        border-style: solid;
+        position: absolute;
+        display: block;
+        top: 6px;
+        width: 6px;
+        left: 6px;
+        right: 7px;
+        height: 10px;
+        transform: rotate(45deg);
+        border-width: 0 2px 2px 0;
+      }
     }
   }
 }

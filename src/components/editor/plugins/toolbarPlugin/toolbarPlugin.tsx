@@ -6,6 +6,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $isHeadingNode } from '@lexical/rich-text'
 import { $isAtNodeEnd } from '@lexical/selection'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
+import Tippy from '@tippyjs/react'
 import cn from 'classnames'
 import {
   $getNodeByKey,
@@ -412,72 +413,88 @@ export default function ToolbarPlugin() {
         </>
       ) : (
         <>
-          <button
-            onClick={() => {
-              editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
-            }}
-            className={cn('an-edt-toolbar-item', { active: isBold })}
-            aria-label="Format Bold"
-          >
-            <RxFontBold />
-          </button>
-          <button
-            onClick={() => {
-              editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
-            }}
-            className={cn('an-edt-toolbar-item', { active: isItalic })}
-            aria-label="Format Italics"
-          >
-            <RxFontItalic />
-          </button>
-          <button
-            onClick={() => {
-              editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
-            }}
-            className={cn('an-edt-toolbar-item', { active: isUnderline })}
-            aria-label="Format Underline"
-          >
-            <RxUnderline />
-          </button>
-          <button
-            onClick={() => {
-              editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
-            }}
-            className={cn('an-edt-toolbar-item', { active: isStrikethrough })}
-            aria-label="Format Strikethrough"
-          >
-            <BiStrikethrough />
-          </button>
-          <button
-            onClick={() => {
-              editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
-            }}
-            className={cn('an-edt-toolbar-item', { active: isCode })}
-            aria-label="Insert Code"
-          >
-            <BsCode />
-          </button>
-          <button
-            onClick={insertLink}
-            className={cn('an-edt-toolbar-item', { active: isLink })}
-            aria-label="Insert Link"
-          >
-            <GoLink />
-          </button>
-          <button
-            onClick={indentList}
-            className={cn('an-edt-toolbar-item')}
-            aria-label="Indent List"
-          >
-            <BsTextIndentLeft />
-          </button>
-          <button
-            onClick={outdentList}
-            className={cn('an-edt-toolbar-item')}
-            aria-label="Outden List"
-          >
-            <BsTextIndentRight />
-          </button>
+          <Tippy content="Bold (⌘B)" arrow={false} placement="bottom">
+            <button
+              onClick={() => {
+                editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
+              }}
+              className={cn('an-edt-toolbar-item', { active: isBold })}
+              aria-label="Format Bold"
+            >
+              <RxFontBold />
+            </button>
+          </Tippy>
+          <Tippy content="Italic (⌘I)" arrow={false} placement="bottom">
+            <button
+              onClick={() => {
+                editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
+              }}
+              className={cn('an-edt-toolbar-item', { active: isItalic })}
+              aria-label="Format Italics"
+            >
+              <RxFontItalic />
+            </button>
+          </Tippy>
+          <Tippy content="Underline (⌘U)" arrow={false} placement="bottom">
+            <button
+              onClick={() => {
+                editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
+              }}
+              className={cn('an-edt-toolbar-item', { active: isUnderline })}
+              aria-label="Format Underline"
+            >
+              <RxUnderline />
+            </button>
+          </Tippy>
+          <Tippy content="Strikethrough" arrow={false} placement="bottom">
+            <button
+              onClick={() => {
+                editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
+              }}
+              className={cn('an-edt-toolbar-item', { active: isStrikethrough })}
+              aria-label="Format Strikethrough"
+            >
+              <BiStrikethrough />
+            </button>
+          </Tippy>
+          <Tippy content="Insert code block" arrow={false} placement="bottom">
+            <button
+              onClick={() => {
+                editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
+              }}
+              className={cn('an-edt-toolbar-item', { active: isCode })}
+              aria-label="Code"
+            >
+              <BsCode />
+            </button>
+          </Tippy>
+          <Tippy content="Insert Link" arrow={false} placement="bottom">
+            <button
+              onClick={insertLink}
+              className={cn('an-edt-toolbar-item', { active: isLink })}
+              aria-label="Insert Link"
+            >
+              <GoLink />
+            </button>
+          </Tippy>
+          <Tippy content="Indent" arrow={false} placement="bottom">
+            <button
+              onClick={indentList}
+              className={cn('an-edt-toolbar-item')}
+              aria-label="Indent List"
+            >
+              <BsTextIndentLeft />
+            </button>
+          </Tippy>
+          <Tippy content="Outdent" arrow={false} placement="bottom">
+            <button
+              onClick={outdentList}
+              className={cn('an-edt-toolbar-item')}
+              aria-label="Outden List"
+            >
+              <BsTextIndentRight />
+            </button>
+          </Tippy>
           {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
         </>
       )}
