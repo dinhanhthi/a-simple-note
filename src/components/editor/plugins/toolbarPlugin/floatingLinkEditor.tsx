@@ -13,7 +13,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { BsCheckLg } from 'react-icons/bs'
 import { FiEdit3 } from 'react-icons/fi'
 
-const LowPriority = 1
+import { LowPriority } from '../../editor'
 
 export function FloatingLinkEditor({ editor }: { editor: LexicalEditor }) {
   const editorRef = useRef(null)

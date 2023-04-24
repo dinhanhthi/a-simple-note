@@ -6,6 +6,7 @@ import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
@@ -21,6 +22,8 @@ import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
 import MarkdownShortcutPlugin from './plugins/markdown/markdownShortcutPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin/toolbarPlugin'
 import prepopulatedText from './sampleText'
+
+export const LowPriority = 1
 
 function Placeholder() {
   return (
@@ -77,6 +80,7 @@ export default function Editor(props: EditorProps) {
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
+          <HistoryPlugin />
           <AutoFocusPlugin />
           <ListPlugin />
           <CheckListPlugin />
