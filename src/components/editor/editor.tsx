@@ -13,6 +13,7 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import cn from 'classnames'
+import { useRef } from 'react'
 
 import ExampleTheme from './customTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
@@ -63,6 +64,7 @@ type EditorProps = {
 }
 
 export default function Editor(props: EditorProps) {
+  const editorStateRef = useRef()
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="flex h-full flex-col divide-y overflow-auto">

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Note } from '../../interface'
 import clientPromise from '../../lib/mongodb'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Note[]>) {
+export default async function notesHandler(_req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await clientPromise
     const db = client.db('atomicNote')
@@ -15,9 +15,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       .limit(10)
       .toArray()
 
-    // res.status(200).json(notes)
-    res.json(notes)
-  } catch (e) {
-    console.error(e)
+    res.status(200).json(notes)
+  } catch (e: any) {
+    console.error(`Error when GET /api/notes: ${e}`)
+    res.status(500).send({
+      message: e.message,
+      status: 500
+    })
   }
 }
