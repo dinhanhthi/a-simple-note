@@ -14,12 +14,6 @@ type NewNoteButtonProps = {
 export default function NewNoteButton(props: NewNoteButtonProps) {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const note = {
-    title: 'New Note',
-    content: 'test',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }
   return (
     <>
       {!props.hide && (
@@ -34,7 +28,7 @@ export default function NewNoteButton(props: NewNoteButtonProps) {
           <BsPlusLg className="h-6 w-6 text-slate-700" />
         </button>
       )}
-      <BlockModal note={note} isOpen={isModalOpen} closeModal={closeModal} />
+      <BlockModal isOpen={isModalOpen} closeModal={closeModal} />
     </>
   )
 

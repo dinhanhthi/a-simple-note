@@ -11,12 +11,13 @@ type BlockModalProps = {
   isOpen: boolean
   closeModal: () => void
   // note: Note
-  noteId: string
+  noteId?: string
   className?: string
 }
 
 export default function BlockModal(props: BlockModalProps) {
   const { data: note, error, isLoading } = useSwr<Note>(`/api/note/${props.noteId}`, fetcher)
+  const title = !props.noteId || !note || !Object.keys(note).length ? 'New Note' : note.title
   const onKeyDown = (e: any) =>
     e.ctrlKey ||
     (e.metaKey && !['c', 'v', 'ArrowLeft', 'ArrowRight'].includes(e.key) && e.preventDefault())
@@ -67,7 +68,7 @@ export default function BlockModal(props: BlockModalProps) {
                       'focus-within:outline-none'
                     )}
                   >
-                    {note?.title ?? 'Untitled #' + note?._id?.slice(-5)}
+                    {title}
                   </Dialog.Title>
                 </div>
                 {/* <div className="prose py-2">{parse(note.content)}</div> */}

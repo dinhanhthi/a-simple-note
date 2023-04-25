@@ -11,6 +11,7 @@ export default async function noteHandler(req: NextApiRequest, res: NextApiRespo
 
     switch (req.method) {
       case 'GET': {
+        if (!req.query.id) res.status(200).json(null)
         const note = await db
           .collection<Note>('notes')
           .findOne({ _id: new ObjectId(req.query.id as string) as any })
