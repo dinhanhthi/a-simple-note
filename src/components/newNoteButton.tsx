@@ -8,6 +8,7 @@ import BlockModal from './blockModal'
 type NewNoteButtonProps = {
   className?: string
   hide?: boolean
+  disabled?: boolean
 }
 
 export default function NewNoteButton(props: NewNoteButtonProps) {
@@ -23,6 +24,7 @@ export default function NewNoteButton(props: NewNoteButtonProps) {
     <>
       {!props.hide && (
         <button
+          disabled={props.disabled}
           onClick={createNote}
           className={cn(
             props.className,

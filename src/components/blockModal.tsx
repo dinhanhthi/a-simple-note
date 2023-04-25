@@ -1,19 +1,22 @@
 import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
 import { Fragment } from 'react'
+import useSwr from 'swr'
 
 import { Note } from '../interface'
+import { fetcher } from '../lib/helpers'
 import Editor from './editor/editor'
 
 type BlockModalProps = {
   isOpen: boolean
   closeModal: () => void
-  note: Note
+  // note: Note
+  noteId: string
   className?: string
 }
 
 export default function BlockModal(props: BlockModalProps) {
-  const note = props.note
+  const { data: note, error, isLoading } = useSwr<Note>(`/api/note/${props.noteId}`, fetcher)
   const onKeyDown = (e: any) =>
     e.ctrlKey ||
     (e.metaKey && !['c', 'v', 'ArrowLeft', 'ArrowRight'].includes(e.key) && e.preventDefault())
@@ -64,7 +67,7 @@ export default function BlockModal(props: BlockModalProps) {
                       'focus-within:outline-none'
                     )}
                   >
-                    {note.title}
+                    {note?.title ?? 'Untitled #' + note?._id?.slice(-5)}
                   </Dialog.Title>
                 </div>
                 {/* <div className="prose py-2">{parse(note.content)}</div> */}

@@ -25,3 +25,24 @@ yarn clean
 # reinstall
 yarn reinstall
 ```
+
+## Use MongoSH in MongoDB Compass
+
+MongoSH is compatibility with the MongoDB Node.js driver ([ref](https://www.mongodb.com/docs/mongodb-shell/))
+
+```bash
+# Change database
+use atomicNotes
+```
+
+```bash
+# MongoSH
+db.notes.find({}).sort({ metacritic: -1 }).limit(10).toArray()
+```
+
+And the corresponding codes using node driver,
+
+```ts
+const db = client.db('atomicNote')
+await db.collection<Note>('notes').find({}).sort({ metacritic: -1 }).limit(10).toArray()
+```

@@ -5,8 +5,6 @@ import { Note } from '../../../interface'
 import clientPromise from '../../../lib/mongodb'
 
 export default async function noteHandler(req: NextApiRequest, res: NextApiResponse) {
-  /* ###Thi */ console.log('id: ', req.query?.id)
-
   try {
     const client = await clientPromise
     const db = client.db('atomicNote')

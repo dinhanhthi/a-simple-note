@@ -1,20 +1,40 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { Note } from '../../interface'
 import clientPromise from '../../lib/mongodb'
 
-export default async function notesHandler(_req: NextApiRequest, res: NextApiResponse) {
+/**
+ * Get a list of notes
+ * GET /api/notes?num=2
+ */
+export default async function notesHandler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await clientPromise
     const db = client.db('atomicNote')
+    const numNotes = req.query?.num ? +req.query?.num : 20
 
-    const notes = await db
-      .collection<Note>('notes')
-      .find({})
-      .sort({ metacritic: -1 })
-      .limit(10)
-      .toArray()
+    const pipeline = [
+      {
+        $sort: {
+          updatedAt: -1
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          content: {
+            $substr: ['$content', 0, 50]
+          },
+          createdAt: 1,
+          updatedAt: 1
+        }
+      },
+      {
+        $limit: numNotes
+      }
+    ]
 
+    const notes = await db.collection('notes').aggregate(pipeline).toArray()
     res.status(200).json(notes)
   } catch (e: any) {
     console.error(`Error when GET /api/notes: ${e}`)
