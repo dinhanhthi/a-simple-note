@@ -86,7 +86,7 @@ export default function BlockModal(props: BlockModalProps) {
                 )}
 
                 {props.isNew && (
-                  <Editor editorState={null} saveNote={saveNote} closeModal={props.closeModal} />
+                  <Editor noteContent='' saveNote={saveNote} closeModal={props.closeModal} />
                 )}
               </Dialog.Panel>
             </Transition.Child>
@@ -97,6 +97,7 @@ export default function BlockModal(props: BlockModalProps) {
   )
 
   async function saveNote(data: string) {
+    props.closeModal()
     return updateNoteContent(props.noteId!, data)
   }
 }

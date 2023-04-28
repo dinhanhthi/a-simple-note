@@ -37,8 +37,9 @@ export default function EditorWrapper(props: EditorWrapperProps) {
       {note && !isLoading && !hasError && (
         <Editor
           // editorState={prepopulatedText}
-          editorState={prepopulatedText}
+          // editorState={prepopulatedText}
           // editorState={editorState}
+          noteContent={note.content}
           saveNote={props.saveNote}
           closeModal={props.closeModal}
         />

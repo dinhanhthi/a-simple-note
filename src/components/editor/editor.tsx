@@ -38,7 +38,7 @@ function Placeholder() {
 }
 
 const editorConfig: any = (editorState: any) => ({
-  editorState: prepopulatedText,
+  // editorState: prepopulatedText,
   theme: ExampleTheme,
   // Handling of errors during update
   onError(error: any) {
@@ -60,8 +60,8 @@ const editorConfig: any = (editorState: any) => ({
 })
 
 type EditorProps = {
-  // noteContent?: string
-  editorState?: any
+  noteContent?: string
+  // editorState?: any
   saveNote: (data: any) => void
   closeModal: () => void
 }
@@ -80,8 +80,14 @@ const EditorCapturePlugin = React.forwardRef(function EditorCapturePlugin(props:
 
 export default function Editor(props: EditorProps) {
   const editorRef: any = useRef()
+  // let editorState = null
+  useEffect(() => {
+    const editorState = editorRef.current?.parseEditorState(props.noteContent)
+    editorRef.current?.setEditorState(editorState)
+  }, [])
+
   return (
-    <LexicalComposer initialConfig={editorConfig(props.editorState)}>
+    <LexicalComposer initialConfig={editorConfig()}>
       <div className="flex h-full flex-col divide-y overflow-auto">
         <ToolbarPlugin />
         <div className="an-scrollbar relative h-full flex-1 overflow-auto">
