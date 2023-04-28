@@ -65,7 +65,8 @@ module.exports = {
         ignoreStrings: true,
         ignoreTemplateLiterals: true
       }
-    ]
+    ],
+    '@typescript-eslint/no-non-null-assertion': 'off'
   },
   ignorePatterns: ['next-env.d.ts', 'graphql/**/*.ts']
 }

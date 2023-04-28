@@ -59,7 +59,14 @@ export default function Block(props: BlockProps) {
           </div>
         </div>
       </div>
-      <BlockModal noteId={note._id} isOpen={isOpen} closeModal={closeModal} />
+      {isOpen && (
+        <BlockModal
+          noteTitle={note.title}
+          noteId={note._id}
+          isOpen={isOpen}
+          closeModal={closeModal}
+        />
+      )}
     </>
   )
 }

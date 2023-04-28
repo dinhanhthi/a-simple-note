@@ -1,28 +1,30 @@
 import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
-import { Fragment } from 'react'
-import useSwr from 'swr'
+import { Fragment, useRef } from 'react'
 
 import { Note } from '../interface'
-import { fetcher } from '../lib/helpers'
 import Editor from './editor/editor'
+import EditorWrapper from './editorWrapper'
 
 type BlockModalProps = {
   isOpen: boolean
   closeModal: () => void
   // note: Note
   noteId?: string
+  noteTitle?: string
   className?: string
 }
 
 export default function BlockModal(props: BlockModalProps) {
-  const { data: note, error, isLoading } = useSwr<Note>(`/api/note/${props.noteId}`, fetcher)
-  const title = !props.noteId || !note || !Object.keys(note).length ? 'New Note' : note.title
+  const title = props.noteTitle || 'Untitled'
+  const titleRef = useRef<HTMLInputElement>(null)
+
   const onKeyDown = (e: any) =>
     e.ctrlKey ||
     (e.metaKey && !['c', 'v', 'ArrowLeft', 'ArrowRight'].includes(e.key) && e.preventDefault())
+
   return (
-    <Transition appear show={props.isOpen} as={Fragment}>
+    <Transition appear={true} show={props.isOpen} as={Fragment}>
       {/* 👇 Give onClose an empty function to disable click outside to hide the dialog */}
       {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
       <Dialog as="div" className={cn('relative z-10', props.className)} onClose={props.closeModal}>
@@ -51,13 +53,15 @@ export default function BlockModal(props: BlockModalProps) {
             >
               <Dialog.Panel
                 className={cn(
-                  'flex flex-col gap-0 w-full lg:max-w-[80vw] max-h-[80vh] transform rounded-lg',
+                  'flex flex-col gap-0 w-full transform rounded-lg',
+                  'md:max-w-[80vw] lg:max-w-[70vw] xl:max-w-[60vw] 2xl:max-w-[50vw] max-h-[80vh]',
                   'bg-white p-5 pb-3 text-left',
                   'align-middle shadow-xl transition-all text-slate-800'
                 )}
               >
                 <div className="border-b pb-2">
                   <Dialog.Title
+                    ref={titleRef}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                     onKeyDown={onKeyDown}
@@ -71,8 +75,18 @@ export default function BlockModal(props: BlockModalProps) {
                     {title}
                   </Dialog.Title>
                 </div>
-                {/* <div className="prose py-2">{parse(note.content)}</div> */}
-                <Editor saveNote={saveNote} closeModal={props.closeModal} />
+
+                {props.noteId && (
+                  <EditorWrapper
+                    noteId={props.noteId}
+                    saveNote={saveNote}
+                    closeModal={props.closeModal}
+                  />
+                )}
+
+                {!props.noteId && (
+                  <Editor editorState={null} saveNote={saveNote} closeModal={props.closeModal} />
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -81,8 +95,19 @@ export default function BlockModal(props: BlockModalProps) {
     </Transition>
   )
 
-  function saveNote() {
-    /* ###Thi */ console.log('saveNote')
+  async function saveNote(data: any) {
+    // /* ###Thi */ console.log('saveNote with data: ', data)
+    const note: Note = {
+      title: titleRef.current?.innerText || 'Untitled',
+      content: data,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+    await fetch('/api/note', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(note)
+    })
     props.closeModal()
   }
 }

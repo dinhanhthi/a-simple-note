@@ -32,7 +32,7 @@ MongoSH is compatibility with the MongoDB Node.js driver ([ref](https://www.mong
 
 ```bash
 # Change database
-use atomicNotes
+use atomicNote
 ```
 
 ```bash
