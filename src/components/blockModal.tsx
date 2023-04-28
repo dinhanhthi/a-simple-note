@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
-import { Fragment, useRef } from 'react'
+import { Fragment, useRef, useState } from 'react'
 
-import { Note } from '../interface'
+import { updateNoteContent } from '../lib/request'
 import Editor from './editor/editor'
 import EditorWrapper from './editorWrapper'
 
@@ -10,9 +10,10 @@ type BlockModalProps = {
   isOpen: boolean
   closeModal: () => void
   // note: Note
-  noteId?: string
+  noteId: string
   noteTitle?: string
   className?: string
+  isNew?: boolean
 }
 
 export default function BlockModal(props: BlockModalProps) {
@@ -76,7 +77,7 @@ export default function BlockModal(props: BlockModalProps) {
                   </Dialog.Title>
                 </div>
 
-                {props.noteId && (
+                {props.noteId && !props.isNew && (
                   <EditorWrapper
                     noteId={props.noteId}
                     saveNote={saveNote}
@@ -84,7 +85,7 @@ export default function BlockModal(props: BlockModalProps) {
                   />
                 )}
 
-                {!props.noteId && (
+                {props.isNew && (
                   <Editor editorState={null} saveNote={saveNote} closeModal={props.closeModal} />
                 )}
               </Dialog.Panel>
@@ -95,19 +96,7 @@ export default function BlockModal(props: BlockModalProps) {
     </Transition>
   )
 
-  async function saveNote(data: any) {
-    // /* ###Thi */ console.log('saveNote with data: ', data)
-    const note: Note = {
-      title: titleRef.current?.innerText || 'Untitled',
-      content: data,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-    await fetch('/api/note', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(note)
-    })
-    props.closeModal()
+  async function saveNote(data: string) {
+    return updateNoteContent(props.noteId!, data)
   }
 }

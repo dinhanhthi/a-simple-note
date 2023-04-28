@@ -46,3 +46,7 @@ And the corresponding codes using node driver,
 const db = client.db('atomicNote')
 await db.collection<Note>('notes').find({}).sort({ metacritic: -1 }).limit(10).toArray()
 ```
+
+## Troubleshooting
+
+`Module not found: Can't resolve 'dns'` is we use `mongodb` package in the client side.

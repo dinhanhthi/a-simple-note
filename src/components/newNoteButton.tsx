@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { BsPlusLg } from 'react-icons/bs'
 
+import { createNewNote } from '../lib/request'
 import BlockModal from './blockModal'
 
 type NewNoteButtonProps = {
@@ -14,6 +15,8 @@ type NewNoteButtonProps = {
 export default function NewNoteButton(props: NewNoteButtonProps) {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [noteId, setNoteId] = useState<string | undefined>(undefined)
+
   return (
     <>
       {!props.hide && (
@@ -28,12 +31,21 @@ export default function NewNoteButton(props: NewNoteButtonProps) {
           <BsPlusLg className="h-6 w-6 text-slate-700" />
         </button>
       )}
-      <BlockModal isOpen={isModalOpen} closeModal={closeModal} />
+      {noteId && (
+        <BlockModal
+          isOpen={isModalOpen}
+          closeModal={closeModal}
+          noteId={noteId}
+          noteTitle="New Note"
+          isNew={true}
+        />
+      )}
     </>
   )
 
-  function createNote() {
-    openModal()
+  async function createNote() {
+    const noteId = await createNewNote()
+    openModal(noteId)
   }
 
   function closeModal() {
@@ -41,8 +53,10 @@ export default function NewNoteButton(props: NewNoteButtonProps) {
     setIsModalOpen(false)
   }
 
-  function openModal() {
-    router.push('/?newNote')
+  function openModal(noteId: string) {
+    if (!noteId) return
+    router.push(`/?note=${noteId}`)
     setIsModalOpen(true)
+    setNoteId(noteId)
   }
 }
