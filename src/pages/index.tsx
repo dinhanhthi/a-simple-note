@@ -22,7 +22,7 @@ export default function Home(props: HomeProps) {
   const { data: notes, error, isLoading } = useSwr<Note[]>('/api/notes?num=10', fetcher)
   const [hasError, setHasError] = useState(false)
 
-  if (error) return setHasError(true)
+  if (error) setHasError(true)
 
   return (
     <>
@@ -35,7 +35,9 @@ export default function Home(props: HomeProps) {
       <main>
         <div className={cn('relative flex h-screen flex-col justify-between')}>
           <Navigation />
-          {notes && <Blocks notes={notes} />}
+
+          {notes && !isLoading && !hasError && <Blocks notes={notes} />}
+
           {isLoading && (
             <div className={cn('h-full flex flex-col items-center justify-center')}>
               <div className={cn('flex items-center gap-2 text-slate-600 animate-pulse')}>
@@ -46,6 +48,7 @@ export default function Home(props: HomeProps) {
               </div>
             </div>
           )}
+
           {hasError && (
             <div className={cn('h-full flex flex-col items-center justify-center')}>
               <div className={cn('flex items-center gap-2 text-slate-600')}>

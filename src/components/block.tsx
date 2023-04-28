@@ -41,7 +41,7 @@ export default function Block(props: BlockProps) {
       <div
         onClick={() => openModal(note._id)}
         className={cn(
-          'an-block p-[1px] flex-1 cursor-pointer min-w-[400px] max-w-[500px] min-h-[200px]',
+          'an-block p-[1px] min-h-[200px]',
           'an-shadow-soft-xl overflow-hidden an-bg-clip-border hover:rounded-none rounded-xl',
           'transition-all duration-200'
         )}
