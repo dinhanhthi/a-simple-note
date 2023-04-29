@@ -16,6 +16,7 @@ import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import cn from 'classnames'
 import React, { useEffect, useRef } from 'react'
 
+import { Note } from '../../interface'
 import ExampleTheme from './customTheme'
 import ActionsPlugin from './plugins/actionsPlugin'
 import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
@@ -23,7 +24,6 @@ import FixIndentOutdentListPlugin from './plugins/fixIndentOutdentList'
 import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
 import MarkdownShortcutPlugin from './plugins/markdown/markdownShortcutPlugin'
 import ToolbarPlugin from './plugins/toolbarPlugin/toolbarPlugin'
-import prepopulatedText from './sampleText'
 
 export const LowPriority = 1
 
@@ -60,6 +60,7 @@ const editorConfig: any = (editorState: any) => ({
 })
 
 type EditorProps = {
+  note?: Note
   noteContent?: string
   // editorState?: any
   saveNote: (data: any) => void
@@ -82,11 +83,17 @@ export default function Editor(props: EditorProps) {
   const editorRef: any = useRef()
   // let editorState = null
   useEffect(() => {
-    if (props.noteContent) {
-      const editorState = editorRef.current?.parseEditorState(props.noteContent)
+    // if (props.noteContent) {
+    //   /* ###Thi */ console.log('content changes')
+    //   const editorState = editorRef.current?.parseEditorState(props.noteContent)
+    //   editorRef.current?.setEditorState(editorState)
+    // }
+    if (props.note?.content) {
+      /* ###Thi */ console.log('content changes')
+      const editorState = editorRef.current?.parseEditorState(props.note.content)
       editorRef.current?.setEditorState(editorState)
     }
-  }, [])
+  }, [props.note])
 
   return (
     <LexicalComposer initialConfig={editorConfig()}>

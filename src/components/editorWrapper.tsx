@@ -17,8 +17,13 @@ type EditorWrapperProps = {
 }
 
 export default function EditorWrapper(props: EditorWrapperProps) {
-  const { data: note, error, isLoading } = useSwr<Note>(`/api/note/${props.noteId}`, fetcher)
+  const {
+    data: note,
+    error,
+    isLoading
+  } = useSwr<Note>(`/api/note/${props.noteId}`, fetcher, { refreshInterval: 1000 })
   const [hasError, setHasError] = useState(false)
+  const [noteContent, setNoteContent] = useState()
 
   if (error) setHasError(true)
 
@@ -30,6 +35,8 @@ export default function EditorWrapper(props: EditorWrapperProps) {
     // setEditorState(JSON.parse(note.content))
     // setEditorState(note.content as any)
     // setEditorState('' as any)
+    // setNoteContent(note.content as any)
+    /* ###Thi */ console.log('note.content: ', noteContent)
   }
 
   return (
@@ -39,7 +46,9 @@ export default function EditorWrapper(props: EditorWrapperProps) {
           // editorState={prepopulatedText}
           // editorState={prepopulatedText}
           // editorState={editorState}
-          noteContent={note.content}
+          // noteContent={note.content}
+          // noteContent={noteContent}
+          note={note}
           saveNote={props.saveNote}
           closeModal={props.closeModal}
         />

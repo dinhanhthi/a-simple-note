@@ -55,7 +55,7 @@ export default function Block(props: BlockProps) {
             {note.title ?? 'Untitled #' + note._id?.slice(-5)}
           </div>
           <div className={cn('flex-1 p-1 rounded-xl text-[0.9rem] prose')}>
-            {parse(note.content)}
+            {parse(note.content ?? '<p></p>')}
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { Note } from '../interface'
+
 export async function updateNoteTitle(title: string): Promise<void> {
   const res = await fetch('/api/note', {
     method: 'PATCH',
@@ -18,6 +20,19 @@ export async function updateNoteContent(noteId: string, content: string): Promis
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ content, updatedAt: new Date() })
+  })
+  if (!res.ok) {
+    throw new Error('Something went wrong when updating content')
+  }
+}
+
+export async function updateNote(noteId: string, note: Note): Promise<void> {
+  const res = await fetch(`/api/note/${noteId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ...note, updatedAt: new Date() })
   })
   if (!res.ok) {
     throw new Error('Something went wrong when updating content')

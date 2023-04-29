@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import cn from 'classnames'
 import { Fragment, useRef, useState } from 'react'
 
-import { updateNoteContent } from '../lib/request'
+import { updateNote, updateNoteContent } from '../lib/request'
 import Editor from './editor/editor'
 import EditorWrapper from './editorWrapper'
 
@@ -86,7 +86,7 @@ export default function BlockModal(props: BlockModalProps) {
                 )}
 
                 {props.isNew && (
-                  <Editor noteContent='' saveNote={saveNote} closeModal={props.closeModal} />
+                  <Editor noteContent="" saveNote={saveNote} closeModal={props.closeModal} />
                 )}
               </Dialog.Panel>
             </Transition.Child>
@@ -98,6 +98,7 @@ export default function BlockModal(props: BlockModalProps) {
 
   async function saveNote(data: string) {
     props.closeModal()
-    return updateNoteContent(props.noteId!, data)
+    // return updateNoteContent(props.noteId!, data)
+    return updateNote(props.noteId!, { content: data, title: titleRef.current?.innerText })
   }
 }
