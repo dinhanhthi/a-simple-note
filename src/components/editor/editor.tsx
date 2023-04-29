@@ -82,8 +82,10 @@ export default function Editor(props: EditorProps) {
   const editorRef: any = useRef()
   // let editorState = null
   useEffect(() => {
-    const editorState = editorRef.current?.parseEditorState(props.noteContent)
-    editorRef.current?.setEditorState(editorState)
+    if (props.noteContent) {
+      const editorState = editorRef.current?.parseEditorState(props.noteContent)
+      editorRef.current?.setEditorState(editorState)
+    }
   }, [])
 
   return (
