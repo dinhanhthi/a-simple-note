@@ -1,6 +1,7 @@
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { ListItemNode, ListNode } from '@lexical/list'
+import { $convertFromMarkdownString, $convertToMarkdownString } from '@lexical/markdown'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
@@ -14,7 +15,7 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import cn from 'classnames'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
 import { Note } from '../../interface'
 import ExampleTheme from './customTheme'
@@ -23,6 +24,7 @@ import CodeHighlightPlugin from './plugins/codeHighlightPlugin'
 import FixIndentOutdentListPlugin from './plugins/fixIndentOutdentList'
 import ListMaxIndentLevelPlugin from './plugins/listMaxIndentLevelPlugin'
 import MarkdownShortcutPlugin from './plugins/markdown/markdownShortcutPlugin'
+import { AN_MD_TRANSFORMERS } from './plugins/markdown/markdownTransformers'
 import ToolbarPlugin from './plugins/toolbarPlugin/toolbarPlugin'
 
 export const LowPriority = 1
@@ -81,18 +83,31 @@ const EditorCapturePlugin = React.forwardRef(function EditorCapturePlugin(props:
 
 export default function Editor(props: EditorProps) {
   const editorRef: any = useRef()
+  // let contentInMarkdown
   // let editorState = null
+
+  const [markdown, setMarkdown] = React.useState('')
+
   useEffect(() => {
     // if (props.noteContent) {
     //   /* ###Thi */ console.log('content changes')
     //   const editorState = editorRef.current?.parseEditorState(props.noteContent)
     //   editorRef.current?.setEditorState(editorState)
     // }
-    if (props.note?.content) {
-      /* ###Thi */ console.log('content changes')
-      const editorState = editorRef.current?.parseEditorState(props.note.content)
-      editorRef.current?.setEditorState(editorState)
-    }
+
+    // if (props.note?.content) {
+    //   /* ###Thi */ console.log('content changes')
+    //   // const editorState = editorRef.current?.parseEditorState(props.note.content)
+    //   const editorState = () => $convertFromMarkdownString(props.note.content, AN_MD_TRANSFORMERS)
+    //   editorRef.current?.setEditorState(editorState)
+    // }
+
+    editorRef.current?.update(() => {
+      const contentInMarkdown = $convertToMarkdownString(AN_MD_TRANSFORMERS)
+      setMarkdown(contentInMarkdown)
+
+      $convertFromMarkdownString(props.note?.content ?? '', AN_MD_TRANSFORMERS)
+    })
   }, [props.note])
 
   return (
@@ -153,7 +168,8 @@ export default function Editor(props: EditorProps) {
   )
 
   function saveNote() {
-    const data = JSON.stringify(editorRef.current.getEditorState())
+    // const data = JSON.stringify(editorRef.current.getEditorState())
+    const data = markdown
     props.saveNote(data)
   }
 }

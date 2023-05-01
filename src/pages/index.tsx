@@ -19,7 +19,11 @@ type HomeProps = {
 }
 
 export default function Home(props: HomeProps) {
-  const { data: notes, error, isLoading } = useSwr<Note[]>('/api/notes?num=10', fetcher, { refreshInterval: 1000 })
+  const {
+    data: notes,
+    error,
+    isLoading
+  } = useSwr<Note[]>('/api/notes?num=10', fetcher, { refreshInterval: 1000 })
   const [hasError, setHasError] = useState(false)
 
   if (error) setHasError(true)
