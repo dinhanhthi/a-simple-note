@@ -1,4 +1,4 @@
-# 📓 AtomicNote
+# 📓 a-simple-note
 
 A personal project to make a clone Google Keep with advanced functionalities using Facebook's [Lexical Editor](https://lexical.dev/).
 
