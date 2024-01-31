@@ -31,7 +31,7 @@ export default function Home(props: HomeProps) {
   return (
     <>
       <Head>
-        <title>AtomicNote</title>
+        <title>A Simple Note</title>
         <meta name="description" content="Think and note atomically" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icon.svg" />

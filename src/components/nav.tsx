@@ -18,7 +18,7 @@ export default function Navigation(props: NavigationProps) {
           <Link className={cn('flex items-center gap-3')} href={'/'}>
             <NavIcon />
             <div className={cn('an-text-rainbow whitespace-nowrap font-normal text-lg')}>
-              A simple note
+              A Simple Note
             </div>
           </Link>
           <NavSearch />
