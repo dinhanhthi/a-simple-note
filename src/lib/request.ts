@@ -27,16 +27,18 @@ export async function updateNoteContent(noteId: string, content: string): Promis
 }
 
 export async function updateNote(noteId: string, note: Note): Promise<void> {
-  const res = await fetch(`/api/note/${noteId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ ...note, updatedAt: new Date() })
-  })
-  if (!res.ok) {
-    throw new Error('Something went wrong when updating content')
-  }
+  // const res = await fetch(`/api/note/${noteId}`, {
+  //   method: 'PATCH',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ ...note, updatedAt: new Date() })
+  // })
+  // if (!res.ok) {
+  //   throw new Error('Something went wrong when updating content')
+  // }
+
+  return Promise.resolve()
 }
 
 export async function createNewNote(): Promise<string> {
